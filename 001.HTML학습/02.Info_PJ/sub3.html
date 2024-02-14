@@ -9,7 +9,7 @@
     <!-- CSS 인터널방식 코드 -->
     <style></style>
     <!-- CSS 익스터널방식 코드 -->
-    <link rel="stylesheet" href="./css/sub.css">
+    <link rel="stylesheet" href="./css/sub.css" />
   </head>
   <body>
     <!-- 1. 상단영역 : 제목, 메뉴 -->
@@ -26,10 +26,8 @@
           />
           <!-- style속성으로 개별요소에 CSS를 설정할 수 있다! 이런방식을 인라인방식이라고 함 -->
         </a>
-        <a href="sub1.html">정치</a> | 
-        <a href="sub2.html">경제</a> | 
-        <a href="sub3.html">사회</a> |
-        <a href="sub4.html">IT/과학</a> |
+        <a href="sub1.html">정치</a> | <a href="sub2.html">경제</a> |
+        <a href="sub3.html">사회</a> | <a href="sub4.html">IT/과학</a> |
         <a href="sub5.html">TV/연예</a>
       </nav>
     </header>
@@ -38,16 +36,21 @@
       <!-- 2-1. 서브 타이틀 -->
       <h2 class="sub-title social">사회 뉴스</h2>
       <!-- 2-2. 언론사 로고 -->
-      <div class="press-logo"></div>
+      <div class="press-logo">
+        <img src="./images/press_logo3.png" alt="중앙일보" />
+      </div>
       <!-- 2-3. 기사 제목 -->
       <h3 class="article-title">
-        식물이 흡수한 미세플라스틱, 열매 통해 후세대로 전달된다
+        "내가 성추행한 듯"...만취女 성폭행 실패하자 자진신고男 결국
       </h3>
       <!-- 2-4. 기사 사진 -->
       <figure class="article-picture">
         <!-- 이미지 -->
+        <img src="./images/article_picture3.jpg" alt="사회기사이미지" />
         <!-- 이미지설명 -->
-        <figcaption></figcaption>
+        <figcaption>
+          <small> 서울 동대문경찰서. 사진 연합뉴스TV 캡처 </small>
+        </figcaption>
       </figure>
       <!-- 
         [figure 요소]
@@ -56,8 +59,30 @@
         (설명이 필요없으면 생략한다!)
        -->
 
-       <!-- 2-5. 기사 내용 -->
-      <section class="contents"></section>
+      <!-- 2-5. 기사 내용 -->
+      <section class="contents">
+        <p>
+          부축해준다며 술에 취한 여성에게 접근해 성폭행을 시도한 남성이 경찰에
+          구속됐다.
+        </p>
+
+        <p>
+          14일 서울 동대문경찰서에 따르면 50대 남성 A씨는 지난 10일 오후 10시
+          40분쯤 서울 성동구 거리에서 처음 보는 여성에게 다가가 부축해주겠다며
+          집까지 따라간 뒤 성폭행하려 한 혐의(강간미수)를 받는다.
+        </p>
+
+        <p>
+          피해자의 비명을 들은 이웃 주민이 112에 신고하자 A씨는 현장에서 도망친
+          뒤 경찰에 "모르는 여성을 성추행한 것 같다"고 스스로 신고했다.
+        </p>
+
+        <p>
+          신고를 접수한 경찰은 범행 장소 주변을 수색해 서울 동대문구에서 A씨를
+          검거했다. 서울북부지법은 지난 13일 오전 A씨에 대한 구속 전 피의자
+          심문(영장실질심사)를 진행한 뒤 구속영장을 발부했다.
+        </p>
+      </section>
 
       <!--
         [ p 요소 : 문단(paragraphs) ]
@@ -66,15 +91,16 @@
       -->
 
       <!-- 2-6. 기자 정보 -->
-      <div class="reporter"></div>
+      <div class="reporter">김지혜 기자 kim.jihye6@joongang.co.kr</div>
 
       <!-- 2-7. 기사 원문 -->
       <h5 class="article-link">
-        <a href="" target="_blank">기사원문</a>
+        <a
+          href="https://n.news.naver.com/mnews/article/025/0003341230"
+          target="_blank"
+          >기사원문</a
+        >
       </h5>
-
-    
-    
     </main>
 
     <!-- 3. 하단영역 : 회사정보 -->

@@ -1,3 +1,7 @@
+@charset "utf-8";
+/* 맨 위에 utf-8 인코딩 설정 필수!
+- 외부 CSS파일은 파일 자체적으로 처리되므로 인코딩 형식도 따로 지정해야 한다! */
+
 /* Info PJ 서브페이지용 CSS - sub.css */
 
 /* 공통 외부CSS 불러오기 */
@@ -9,10 +13,15 @@
     html의 랜더링 속도가 향상된다!
 */
 
+/* 서브페이지 글씨체 지정하기 */
+#main-area{
+    font-family: "Noto Sans KR", sans-serif;
+}
+
 /* 서브페이지 타이틀 */
 h2.sub-title{
     /* 글자색 : c */
-    color: rgb(42, 209, 0);
+    /* color: rgb(42, 209, 0); */
     /*
     color: #08b10ba0;
     color: rgb(8 177 11 / 0.626);
@@ -75,25 +84,83 @@ h2.sub-title{
 
 /* 정치 */
 .politics{
+    /* 글자색 */
+    color: rgb(255, 209, 58);
     background-image: url(../images/titbg1.jpg);
 }
 
 /* 경제 */
 .economics{
+    /* 글자색 */
+    color: rgb(255, 137, 58);
     background-image: url(../images/titbg2.jpg);
 }
 
 /* 사회 */
 .social{
+    /* 글자색 */
+    color: rgb(255, 58, 74);
     background-image: url(../images/titbg3.jpg);
 }
 
 /* IT/과학 */
 .it{
+    /* 글자색 */
+    color: rgb(61, 58, 255);
     background-image: url(../images/titbg4.jpg);
 }
 
 /* TV/연예 */
 .tv{
+    /* 글자색 */
+    color: rgb(58, 255, 173);
     background-image: url(../images/titbg5.jpg);
+}
+
+/* 언론사 로고 */
+.press-logo img{
+    height: 32px;
+    /* 이미지는 가로, 세로 중 하나만 주면 비율을 유지하여 변경된다! */
+}
+
+/* 기사 타이틀 */
+.article-title{
+    font-size: 30px;
+    color: #111;
+}
+
+/* 기사 이미지 박스 */
+.article-picture{
+    margin: 20px 0;
+}
+
+/* 기사 이미지 */
+.article-picture img{
+    width: 100%;
+    padding-bottom: 15px;
+}
+
+/* 기사 이미지 설명 */
+.article-picture figcaption{
+    /* tac - 글자중앙정렬 */
+    text-align: center; 
+    padding: 0 5px;
+    font-size: 15px;
+}
+
+/* 기사 이미지 설명 글자 크기 변경 */
+.article-picture figcaption small{
+    font-size: 15px;
+    /* small에서 글자 크기가 지정되어 있으므로 여기에서 글자 크기를 변경해야 반영된다! */
+}
+
+/* 기사 내용 */
+.contents p{
+    /* 글자 크기 : fz */
+    font-size: 17px;
+    /* 줄 간격 : lh
+        line-height 줄간격은 글자의 중앙에서 위아래 높이값을 말하며 글자는 중앙에 흐른다. 단위는 없을 경우 글자크기의 배수로 셋팅됨 */
+    line-height: 1.56;
+    /* 글자색 */
+    color: #333;
 }
