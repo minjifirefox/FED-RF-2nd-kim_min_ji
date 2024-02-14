@@ -1,0 +1,99 @@
+/* Info PJ 서브페이지용 CSS - sub.css */
+
+/* 공통 외부CSS 불러오기 */
+@import url(./common.css);
+/* 
+    @import 방식으로 외부파일 불러와서 합치면
+    html 파일에서 link방식으로 불러올 필요가 없다!
+    이것의 잇점은 웹요청(http request)이 줄어들어
+    html의 랜더링 속도가 향상된다!
+*/
+
+/* 서브페이지 타이틀 */
+h2.sub-title{
+    /* 글자색 : c */
+    color: rgb(42, 209, 0);
+    /*
+    color: #08b10ba0;
+    color: rgb(8 177 11 / 0.626);
+    color: rgba(8, 177, 11, 0.626); */
+
+    /* 글자크기: font-size (fz) */
+    font-size: 38px;
+
+    /* 글자두께: font-weight (fw) */
+    font-weight: normal; 
+    /* font-weight: bold; fwb */
+
+    /* 글자체: font-family
+    - 콤마로 구분된 글자체는 대체체임
+    앞의 글자체가 없으면 뒤에 글자체가 적용됨. 만약 모두 없다면 브라우저 기본체가 적용됨! */
+    /* font-family:'맑은 고딕','궁서','굴림','돋움'; */
+    font-family: 'Bagel Fat One', system-ui;
+
+    /* 텍스트 정렬: text-align:center (tac:중앙 정렬) */
+    text-align: center;
+
+    /* 글자 그림자: text-shadow */
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.35);
+
+    /* 박스 테두리 - border(bd)
+        - 두께 : 선 두께
+        - 종류 : 선 종류(solid실선, dotted점선, dashed대쉬선 등)
+        - 색상 : 테두리 색상
+    */
+    border: 1px solid #2f1180;
+
+    /* 둥근 모서리 - border-radius (brad) */
+    border-radius: 20px;
+
+    /* 패딩 - p */
+    padding: 20px;
+
+    /* 배경색 : bgc */
+    background-color: #ffffff;
+
+    /* 배경반복여부 */
+    background-repeat: no-repeat;
+
+    /* 배경고정 */
+
+    /* 배경위치 (bgp)
+    - cover는 박스를 빈틈없이 비율 유지하여 채움!*/
+    background-position: center;
+
+    /* 배경크기 (bgz) */
+    background-size: cover;
+
+    /* 외부 CSS에서 이미지 경로 주의!!!
+    html 파일이 아닌 CSS 파일 위치에서 상대경로를 잡아야 이미지가 나온다! */
+
+     /* 배경이미지 : bgi -> 개별적으로 줌! */
+    /* background-image: url(../images/titbg4.jpg); */
+
+}
+
+/* 정치 */
+.politics{
+    background-image: url(../images/titbg1.jpg);
+}
+
+/* 경제 */
+.economics{
+    background-image: url(../images/titbg2.jpg);
+}
+
+/* 사회 */
+.social{
+    background-image: url(../images/titbg3.jpg);
+}
+
+/* IT/과학 */
+.it{
+    background-image: url(../images/titbg4.jpg);
+}
+
+/* TV/연예 */
+.tv{
+    background-image: url(../images/titbg5.jpg);
+}
