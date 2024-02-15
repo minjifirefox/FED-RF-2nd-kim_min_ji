@@ -8,7 +8,9 @@ html,body{
 }
 body{
     background-image:
-    linear-gradient(to bottom, rgb(178, 206, 128), palevioletred);
+    url(../images/violet.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
     /* 
         [선형 그라디언트]
         background-image:
