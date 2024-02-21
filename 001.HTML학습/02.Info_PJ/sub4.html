@@ -176,6 +176,176 @@
           sativum) plants
         </p>
       </article>
+
+      <!-- 
+        반대방향부터 출력하기
+        <bdo dir="rtl">우리나라대한민국만세</bdo> -->
+
+        <!-- 
+          [순서없는 리스트 : ul]
+          unordered list
+          (참고: 블릿옵션
+          https://www.w3schools.com/tags/tryit.asp?filename=tryhtml_ul_type_css)
+
+          [순서있는 리스트 : ol]
+          ordered list
+          (참고: 순서표시옵션
+          https://www.w3schools.com/tags/tryit.asp?filename=tryhtml_ol_type_all_css)
+
+          [ul/ol 공통사항]
+          - 하위필수요소 : li (개별리스트)
+          - 주의 : 하위에 li 이외의 블록요소나 그 어떤 요소도 직계자식으로 사용할 수 없다!
+          예) <ul><li></li><div></div></ul> -> 사용불가!
+
+        -->
+
+        <!-- 주요뉴스 : ul -->
+        <article class="main-news news-box">
+          <h3>주요뉴스</h3>
+          <!-- <ul style="list-style-type: square;"> -->
+          <ul>
+            <li>
+              <a href="http://www.inews24.com/view/1685881" target="_blank">"1500만원만 내세요"…미분양 해소 '안간힘'</a>
+            </li>
+            <li>
+              <a href="http://www.inews24.com/view/1686160" target="_blank">'서울의 봄' 불법 유출본 확산에…제작·배급사 "법적 책임 물을 것"</a>
+            </li>
+            <li>
+              <a href="http://www.inews24.com/view/1686096" target="_blank">공시지원금 인상에 불법보조금까지...'성지'에선 갤24가 8만원</a>
+            </li>
+          </ul>
+        </article>
+
+        <!-- 랭킹뉴스 : ol -->
+        <article class="rank-news news-box">
+          <h3>랭킹뉴스</h3>
+          <!-- <ol style="list-style-type: upper-roman;" start="3" reversed> -->
+            <!-- ol은 start로 시작번호 지정옵션, reversed를 주면 역순으로 순서를 보여준다! -->
+          <ol>
+            <li>
+              <a href="https://n.news.naver.com/mnews/ranking/article/031/0000813564?ntype=RANKING" target="_blank">1. 김경율, 카이스트 강제 퇴장 "우발적 아냐…사전 준비한 듯"</a>
+            </li>
+            <li>
+              <a href="https://n.news.naver.com/mnews/ranking/article/031/0000813542?ntype=RANKING" target="_blank">2. 한동훈 "개혁신당, 돈때문에 모였나…이혼하면 보조금 사기"</a>
+            </li>
+            <li>
+              <a href="https://n.news.naver.com/mnews/ranking/article/031/0000813588?ntype=RANKING" target="_blank">3. 개혁신당 '선거 전권' 이준석에게…김종민 "전두환 국보위냐"</a>
+            </li>
+          </ol>
+        </article>
+
+        <!-- 
+          [용어정의리스트 : dl]
+          dl > dt + dd
+          _______________
+          dl : 용어 리스트
+          (defines the description list)
+          dt : 용어 정의
+          (defines the term)
+          dd : 용어 설명
+          (description each term)
+          ___________________
+          주의 - dl은 반드시 자식요소로 dt와 dd가 반드시 한 번 이상 사용되어야 함!
+          또 주의 - dt와 dd는 형제 관계임!(자식 아님!!)
+         -->
+         <!-- 분야별 뉴스 : dl -->
+         <article class="sec-news news-box">
+          <h3>분야별 뉴스</h3>
+          <dl>
+            <!-- 경제파트 -->
+            <dt>경제</dt>
+            <dd>
+              <a href="https://n.news.naver.com/mnews/article/056/0011664448" target="_blank">“bhc 치킨값도 올렸는데”…닭고기는 슬쩍 반값 ‘브라질산’으로 [오늘 이슈]</a>
+            </dd>
+            <dd>
+              <a href="https://n.news.naver.com/mnews/article/011/0004301322" target="_blank">손흥민에 웃은 '메가커피'…이강인에 눈물 '아라치 치킨'</a>
+            </dd>
+
+            <!-- 사회파트 -->
+            <dt>사회</dt>
+            <dd>
+              <a href="https://n.news.naver.com/mnews/article/023/0003817342" target="_blank">“푸바오, 내년엔…” 이별 준비하는 할부지, 팬들 눈물 쏟게 한 장면</a>
+            </dd>
+            <dd>
+              <a href="https://n.news.naver.com/mnews/article/421/0007359601" target="_blank">오세훈 "이승만 과만 부각한 '편견의 시대'…기념관 건립 꼭 필요"</a>
+            </dd>
+
+            <!-- TV/연예파트 -->
+            <dt>TV/연예</dt>
+            <dd>
+              <a href="https://entertain.naver.com/read?oid=311&aid=0001693273&cid=1073787" target="_blank">"문수아도 울었다"…차은우 오열 현장, '故문빈 동생' 목격담 '먹먹' [엑's 이슈]</a>
+            </dd>
+            <dd>
+              <a href="https://entertain.naver.com/read?oid=112&aid=0003682104&cid=1073787" target="_blank">아이유, 스테이씨 시은 '홀씨' 챌린지에 흐뭇 "너무 귀여워..토끼인가"</a>
+            </dd>
+          </dl>
+         </article>
+
+         <!-- 
+          [테이블 요소 : table]
+          table > tbody > tr > td
+
+          -> tbody는 안쓰고 tr부터 구현해도 브라우저가 자동으로 그려준다!
+
+          주의) table > tr 로 직계 선택하게 되면 위와 같은 구조적인 이유로 선택되지 않는다!
+
+          _________________________________________
+
+          ((간단한 테이블 작성시 필수요소))
+          table : 테이블 박스 부모 요소
+          tr : 테이블 행 요소(table row)
+          td : 테이블 데이터 요소(table data)
+
+          -->
+
+          <!-- 사진 뉴스 : table -->
+          <article class="photo-news news-box">
+            <h3>사진 뉴스</h3>
+            <!-- 3행3열 테이블 구성하기 -->
+            <!-- <table border="1"> -->
+            <table>
+              <tr>
+                <td>1</td>
+                <td>
+                  <a href="https://n.news.naver.com/mnews/article/028/0002677464" target="_blank">
+                    ‘살인자ㅇ난감’ 뜬금없는 베드신·불필요한 노출…이게 최선이었나
+                  </a>
+                </td>
+                <td>
+                  <a href="https://n.news.naver.com/mnews/article/028/0002677464" target="_blank">
+                    <img src="./images/pnews1.jpg" alt="포토뉴스이미지">
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>
+                  <a href="https://n.news.naver.com/mnews/article/047/0002422620" target="_blank">
+                    왕복 10시간... 마지막일지도 모를 할머니의 나들이
+                  </a>
+                </td>
+                <td>
+                  <a href="https://n.news.naver.com/mnews/article/047/0002422620" target="_blank">
+                    <img src="./images/pnews2.jpg" alt="포토뉴스이미지2">
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>
+                  <a href="https://n.news.naver.com/mnews/article/296/0000074692" target="_blank">
+                    주위에 SNS보며 '이런' 사람...원나잇 성관계 더 개방적, 왜?
+                  </a>
+                </td>
+                <td>
+                  <a href="https://n.news.naver.com/mnews/article/296/0000074692" target="_blank">
+                    <img src="./images/pnews3.jpg" alt="포토뉴스이미지3">
+                  </a>
+                </td>
+              </tr>
+            </table>
+          </article>
+
     </main>
 
     <!-- 3. 하단영역 : 회사정보 -->
@@ -183,7 +353,7 @@
       <!-- address : 주소, 전화번호, 대표자 등을 포함하는 시멘틱 태그 -->
       <address>
         서울시 강동구 고덕로333 (고덕그라시움) <br />
-        대표: Minji Kik <br />
+        대표: Minji Kim <br />
         전화: 010-7777-8888
       </address>
     </footer>
