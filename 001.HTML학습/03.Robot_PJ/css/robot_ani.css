@@ -158,8 +158,107 @@
 }
 
 /* 3. 로봇 다리 작동 애니 */
+
+.leg{
+    animation: leg-ani .3s ease-in-out 4s 12 alternate;
+    /* 0.3초 애니시간으로 4초 후에 12번 작동
+    alternate 때문에 반대로 작동하는 횟수가 더해짐. from->to(6회), to->from(6회) */
+}
+/* 한 쪽 다리는 올라간 다음 올라가야 하므로 애니 시작 지연 시간을 준다! */
+.leg2{
+    /* 한 방향이 0.3초이므로 0.3초 기다리면 됨! + 전체 기다림 시간 4초를 더함 */
+    animation-delay: 4.3s;
+}
+
+
 @keyframes leg-ani{
     to{
-        
+        top: 76%;
+    }
+}
+
+/* 팔 공통 프랜스폼 세로축 기준 top으로 변경 */
+.arm,.arm span,.arm span::after{
+    transform-origin: top;
+}
+
+/* 4. 로봇 왼쪽 팔 허리에 올리기 */
+.arm1{
+    animation: left-arm-ani1 .4s 8s forwards;
+}
+@keyframes left-arm-ani1{
+    to{
+        transform: rotate(34deg);
+    }
+}
+/* 왼쪽 팔 하단 애니 */
+.arm1 span{
+    animation: left-arm-ani2 .4s 8s forwards;
+}
+@keyframes left-arm-ani2{
+    to{
+        transform: rotate(-90deg);
+    }
+}
+/* 왼쪽 손 하단 애니 */
+.arm1 span::after{
+    animation: left-arm-ani3 .4s 8s forwards;
+}
+@keyframes left-arm-ani3{
+    to{
+        transform: rotate(70deg);
+    }
+}
+/* 5. 로봇 오른쪽 팔 손 흔들기 */
+.arm2{
+    /* 팔 올리기 */
+    animation: right-arm-ani1 .4s 9s forwards,
+    /* 팔 흔들기 :팔 올린 다음 (지연 9.4초) */
+    right-arm-ani2 .4s ease-in-out 9.4s infinite alternate;
+}
+/* 팔 올리기 키프레임 */
+@keyframes right-arm-ani1{
+    to{
+        transform: rotate(-150deg);
+    }
+}
+/* 팔 흔들기 키프레임 */
+@keyframes right-arm-ani2{
+    to{
+        transform: rotate(-135deg);
+    }
+}
+
+/* 오른손 팔꿈치 살짝 움직이기 */
+.arm2 span{
+    animation: right-arm-ani3 0.4s ease-in-out 9.8s forwards infinite alternate;
+}
+
+/* 오른손 팔꿈치 키프레임 */
+@keyframes right-arm-ani3{
+    to{
+        transform: rotate(-15deg);
+    }
+}
+/* 오른손 Y축 회전 */
+.arm2 span::after{
+    animation: right-arm-ani4 0.2s 9s forwards;
+}
+
+/* 오른손 Y축 회전 키프레임 */
+@keyframes right-arm-ani4{
+    to{
+        transform: rotateY(180deg);
+        left: -13px;
+    }
+}
+
+/* 6. 말풍선 나타내기 애니 */
+.link-title{
+    animation: show-tooltip .6s ease-in 10s forwards;
+}
+@keyframes show-tooltip{
+    to{
+        transform: translateX(200px) scale(1);
     }
 }
