@@ -3,6 +3,30 @@
 /* 도깨비 PJ : 공통 모듈 CSS - common.css */
 /* 공유기능 요소 셋팅 */
 
+/* 0. 전체 레이아웃 영역별 세팅 */
+
+/* 1. 상단영역 */
+.top-area{
+    height: 120px;
+}
+
+/* 2. 배너영역 */
+.ban-area{
+    position: relative;
+    /* 부모자격 - .cat-box */
+    height: 680px;
+}
+
+/* 2.5. 서브파트메뉴 */
+.spart-menu{
+    height: 68px;
+}
+
+/* 8. 하단영역 */
+.footer-area{
+    height: 371px;
+}
+
 /************* 1. 상단영역 *************/
 /* 메인 로고 */
 .mlogo img{
@@ -153,6 +177,71 @@
 
 .snum-03{
     background-image: url(../images/bg_main_03.jpg);
+}
+
+/* 캐릭터 박스
+-> 캐릭터 속박스가 있는 공간을 확보해준다! */
+.cat-box{
+    position: absolute;
+    left: 0;
+    /* transform: translateX(-50%); */
+    bottom: 5%;
+    /* 부모는? .ban-area */
+    width: 100%;
+    /* height: 300px; */
+    outline-color: aquamarine;
+}
+
+/* 캐릭터 속박스 - static한 박스임!(공간차지) */
+.cat-inbox{
+    /* 플렉스박스 */
+    display: flex;
+    /* 플렉스 자식 사이 간격
+    gap: 위아래 양쪽 */
+    gap: 0 1vw;
+    /* 가로 최대 크기 설정 */
+    max-width: 1360px;
+    /* 가로 중앙 정렬 */
+    margin: 0 auto;
+    /* 양쪽 패딩 */
+    padding: 0 1vw;
+}
+
+/* 캐릭터 개별 박스 등분할 */
+.cat-inbox article{
+    flex: 1;
+}
+
+/* 캐릭터 이미지 박스 */
+.imbx img{
+    width: 100%;
+}
+
+/* 캐릭터 이름이미지 박스 */
+.iname{
+    display: block;
+    margin-top: -19%;
+    /* 앱솔루트 없이 마진으로 상단 이미지와 겹치게 하기!
+    %의 기준은 마진 주기 전 박스의 세로 크기를 기준한다! */
+    text-align: center;
+}
+
+/* 캐릭터 이름이미지 */
+.iname img{
+    width: 40%;
+}
+
+/* 두번째 이미지 숨기기 */
+.iname img:last-child{
+    display: none;
+}
+/* 오버시 두번째 이미지 보이기 */
+.cat-inbox article:hover .iname img:last-child{
+    display: inline;
+}
+/* 오버시 첫번째 이미지 숨기기 */
+.cat-inbox article:hover .iname img:first-child{
+    display: none;
 }
 
 /************* 3. 하단영역 *************/
