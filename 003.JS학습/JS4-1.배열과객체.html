@@ -616,6 +616,11 @@
             console.log("변경전영화객체", mjObj);
 
             switch(btnTxt) {
+              case "민지초이스":
+              // 객체의 내용을 덮어쓰기 변경함
+              mjObj = myObj;
+              break;
+
               case "탐쌤초이스":
               // 객체의 내용을 덮어쓰기 변경함
               mjObj = tomObj;
@@ -629,6 +634,20 @@
 
             // 변경데이터 확인 후 바로 위 박스 영화 정보 업데이트 함수를 호출한다!
             showMovieInfo();
+
+            // JS 클래스 내장 객체 : classList
+            // add() / remove() 메서드 사용!
+
+            // 버튼에 클래스 on 모두 빼기
+            for(let i=0;i<cntBtn;i++){
+              choiceBtn[i].classList.remove('on');
+            } //// for문 /////////////
+
+            // 클릭된 버튼에 클래스 on 넣기
+            // 클릭된 버튼 자신은 this! 
+            this.classList.add('on');
+
+
           }; ///////////// click 이벤트 함수 /////////////
           // console.log(choiceBtn[i]);
         } ///////////////// for문 ///////////////////////

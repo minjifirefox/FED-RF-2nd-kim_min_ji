@@ -1,5 +1,27 @@
 // 나의 영화 초이스 객체 JS
 
+// 민지의 오브젝트!
+// 자신만의 오브젝트! -> 변경가능하게 let으로 선언한다!
+let myObj = {};
+// 오브젝트 형만 만들고 객체내용은 아래에서!
+
+// 1. 영화 제목
+myObj.title = "아가씨";
+// 2. 감독
+myObj.director = "박찬욱";
+// 3. 배우
+myObj.actor = "김민희,김태리";
+// 4. 장르
+myObj.genre = "드라마";
+// 5. 관람가
+myObj.ratings = "19세";
+// 6. 예고편
+myObj.trailer = function () {
+  console.log("예고편:영화아이디");
+  // 예고편 플레이 함수 호출!
+  playMovie("whldChqCsYk");
+}; /////////// trailer 메서드 ///////////
+
 // 탐쌤의 오브젝트!
 // -> 변경가능하게 let으로 선언한다!
 let tomObj = {};
@@ -21,28 +43,6 @@ tomObj.trailer = function () {
   // 예고편 플레이 함수호출!
   playMovie("4uSn4Dem9i0");
 }; ////// trailer 메서드 ////////
-
-// 민지의 오브젝트!
-// 자신만의 오브젝트! -> 변경가능하게 let으로 선언한다!
-let mjObj = {};
-// 오브젝트 형만 만들고 객체내용은 아래에서!
-
-// 1. 영화 제목
-mjObj.title = "아가씨";
-// 2. 감독
-mjObj.director = "박찬욱";
-// 3. 배우
-mjObj.actor = "김민희,김태리";
-// 4. 장르
-mjObj.genre = "드라마";
-// 5. 관람가
-mjObj.ratings = "19세";
-// 6. 예고편
-mjObj.trailer = function () {
-  console.log("예고편:영화아이디");
-  // 예고편 플레이 함수 호출!
-  playMovie("whldChqCsYk");
-}; /////////// trailer 메서드 ///////////
 
 //이지영의 오브젝트 -> 변경 가능하게 let으로
 let jyObj = {};
