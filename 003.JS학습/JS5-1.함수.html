@@ -390,6 +390,50 @@
             함수명: myFn
             기능: 파라미터 얼마든지 받아서 h2만들어 넣기
         *********************************************/
+      function myFn() {
+        // 전달변수가 전혀 없음!
+        console.log('내함수!',arguments);
+        // arguments 파라미터 변수에 담긴 값을 for문을 돌려서 h2 태그에 넣고 .letters 박스에 출력시키기
+
+        // 전달값 개수
+        let cntArgu = arguments.length;
+        
+        // 출력 대상
+        let letters = document.querySelector('.letters');
+
+        for (let i = 0; i < cntArgu; i++){
+          letters.innerHTML += `<h2>${arguments[i]}</h2>`;
+        } ///////// for ////////////
+
+      } /////////////myFn함수/////////////////////
+      //////////////////////////////////////////////
+
+      // 윈도우 컨텐츠 로딩 후 호출
+      window.addEventListener('load', function(){
+        // 함수 호출하기
+        myFn('&lt;애국가&gt;','동해물과 백두산이 마르고 닳도록',
+              '하느님이 보우하사 우리나라 만세',
+              '무궁화 삼천리 화려 강산',
+              '대한 사람 대한으로 길이 보전하세');
+      });
+
+
+
+
+       // 함수의 전달변수가 없어도 보내는 전달값이 있으면
+            // 함수의 arguments라는 전달변수인 [유사배열객체]에
+            // 값을 자동으로 담아준다!
+            
+            // [유사배열객체란? - 배열형식으로 생겼으나 배열이 
+            // 아니므로 배열 메서드를 직접 사용할 수 없다!]
+            // (1) 배열인지 여부검사 : Array.isArray(변수or값)
+            // -> 배열이면 treu / 아니면 false
+            // (2) 유사배열을 배열로 변경하는 메서드는? 
+            // -> Array.from(유사배열)
+            // (3) 기타유사배열 : html컬렉션 
+
+            // arguments 는 익명함수에서 사용가능함!
+            // 단, 화살표함수는 사용불가!
 
 
       /************************************************* 
@@ -429,7 +473,7 @@
 
         // [배경 박스에 ul>li를 넣고 배경 이미지 세팅하기]
         // 1. 대상선정 : .bgbox
-        const bgbox = document.querySelector('bgbox');
+        const bgbox = document.querySelector('.bgbox');
 
         // 2. html 넣기 : 기준은 scene 배열 변수만큼 넣기
         // 2-1. 배열 갯수 구하기
@@ -450,7 +494,7 @@
         for(let i=0;i<cntScene;i++){
           hcode += 
           `<li
-            class="on"
+            ${i === 0 ? 'class="on"' : ""}
             style='background:url(${
               scene[i]
             }) no-repeat center/cover'
@@ -461,7 +505,7 @@
         hcode += '</ul>';
 
         // 코드 확인
-        console.log('hcode:',hcode);
+        // console.log('hcode:',hcode);
 
         // 2-3. 대상에 html 넣기
         bgbox.innerHTML = hcode;
@@ -503,6 +547,9 @@
     showFireworks();
     ">
       우리나라 대한민국 만세 프로젝트 시작!</button>
+
+      <!-- 애국가 가사 타이틀 넣기 박스 -->
+      <div class="letters"></div>
       
     <!-- 불꽃놀이 박스 -->
     <div class="fireworks">
