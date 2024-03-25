@@ -76,6 +76,146 @@
                 무빙:"https://i.namu.wiki/i/8CJyDKz0ziEmjqCaCmxWtdwadwQs5CTXvyOkII3VuUdsJMhqV6FzL19MJdrD2B7zDlEjDCIBJ5QKns0Yu81XAjbwo24tO9mFfCRUC23-4A5i81oOBcpSPcuKdohhElPp0a4gy_qcVUJ96axqSCYCHw.webp"
             };
 
+            /****************************************************************************************************** 
+                [기능 요구사항]
+                1. 영화/드라마 제목 버튼을 클릭하면 본 내용을 배열 데이터에서 선택하여 화면에 보여준다.
+                2. 버튼에 이벤트를 걸고 버튼 별로 구분하여 배열 데이터와 매칭해준다!
+                3. 부가 기능으로 영화/드라마 별 포스터를 소개박스에 오버시 따라다니게 해준다!
+            ******************************************************************************************************/
+
+            // 로딩구역 호출
+            window.addEventListener('load', loadFn);
+
+            // 로딩함수
+            function loadFn(){
+                console.log('로딩완료!');
+                // 1. 대상 선정
+                // 1-1. 이벤트 대상 : 버튼들 .btngo 
+                const btngo = document.querySelectorAll('.btngo');
+                // 1-2. 변경 대상 : 데이터 표시 박스 .minfo
+                const minfo = document.querySelectorAll('.minfo');
+                console.log(btngo,minfo);
+
+                // 2. 이벤트 설정하기
+                // 버튼 대상에 이벤트를 걸어준다!
+                // forEach() 메서드 사용!
+                // 대상 : btngo변수 (.btngo)
+                btngo.forEach((ele)=>{
+                    // ele는 버튼요소자신
+                    // html 컬렉션이니까 하나의 변수는 요소가 전달된다!
+                    ele.onclick = ()=>{
+                        // 1. 클릭된 버튼명
+                        let btxt = ele.innerText;
+                        console.log('버튼명:',btxt);
+
+                        // 2. 버튼명과 배열변수와 매칭하기
+                        // 2-1. 정보 변수 만들기
+                        let mvInfo;
+                        // 2-2. switch문으로 변수 할당하기
+                        switch(btxt){
+                            case "조제":
+                                mvInfo = mv1;
+                                break;
+                            case "원더 우먼 1984":
+                                mvInfo = mv2;
+                                break;
+                            case "도굴":
+                                mvInfo = mv3;
+                                break;
+                            case "공조2: 인터내셔날":
+                                mvInfo = mv4;
+                                break;
+                            case "육사오(6/45)":
+                                mvInfo = mv5;
+                                break;
+                            case "더 퍼스트 슬램덩크":
+                                mvInfo = mv6;
+                                break;
+                            case "바빌론":
+                                mvInfo = mv7;
+                                break;
+                            case "무빙":
+                                mvInfo = mv8;
+                                break;
+                        } ////// switch case ///////
+
+                        console.log('선택데이터:',mvInfo,Array.isArray(mvInfo));
+
+                        // 3. 출력박스에 정보 배분하기
+                        // 선택정보 : mvInfo배열
+                        // 출력박스요소 : .minfo -> minfo변수
+                        // 배열을 forEach() 메서드로 순회함!
+                        // mvInfo.forEach((val,idx)=>minfo[idx].innerText = val);
+                        mvInfo.forEach((val,idx)=>{
+                            // val - 배열값
+                            // idx - 배열순번(0,1,2,...)
+                            // 배열값의 순번과 동일한 순번의 요소에 출력함!
+                            minfo[idx].innerText = val;
+                        }); ///// forEach /////
+
+                        /********************************************************** 
+                            추가기능 : .wrap 박스에 마우스 무브시
+                            포스터 박스 포인터 따라다니기
+                        **********************************************************/
+                        // 1. 대상선정 
+                        // 1-1. 이벤트대상 : .wrap
+                        const wrap = document.querySelector('.wrap');
+                        // 1-2. 변경대상 : .flying-poster
+                        const moving = document.querySelector('.flying-poster');
+                            
+                        console.log(wrap, moving);
+                            
+                        // 2. 이벤트 설정 + 기능구현
+                        // mousemove 이벤트 : 요소 위에 마우스 움직일 때 계속 발생함
+                        wrap.onmousemove = (e) => { // e-이벤트전달변수
+                            // 이벤트 객체로부터 x,y 포인터 위치값
+                            // event.pageX -> x축 좌표
+                            // event.pageY -> y축 좌표
+                            // 위치값 기준은 document 문서 전체이며 x축은 왼쪽 끝, y축은 상단 끝이 기준임
+                            // 숫자는 단위 표시 없는 px값
+                            // console.log('움직여!','x:',e.pageX,'\ny:',e.pageY);
+                        
+                        // 변경 대상의 top,left값을 변경한다!
+                        moving.style.top = e.pageY+'px';
+                        moving.style.left = e.pageX+'px';
+                        }; ////////// mousemove 이벤트 함수 ////////////////
+                    
+                        // .wrap에 마우스 엔터시 포스터 보이기 
+                        wrap.onmouseenter = () => {
+                            console.log('삼항연산결과:',
+                            minfo[0].innerText==''?
+                                "기본":minfo[0].innerText);
+                            // 포스터 박스 배경이미지 초기 세팅하기
+                            // 영화 제목 박스가 비어있으면 "기본" 포스터
+                            // 아니면 영화 제목과 같은 포스터를 출력
+                            // 비 ? 집 : 놀이동산
+                            // 첫번째 입력박스 비였냐 ? "기본" : 포스터명
+                            moving.style.backgroundImage =
+                            `url(${img_src[
+                                minfo[0].innerText==''?
+                                "기본":minfo[0].innerText
+                            ]})`;
+                            moving.style.display = 'block';
+                        }; /////// mouseenter /////////
+                    
+                        // .wrap에 마우스 리브시 포스터 숨기기 
+                        wrap.onmouseleave = () => {
+                            moving.style.display = 'none';
+                        }; ////// mouseleave ////////
+
+                    }; ///// click /////
+                }); ///// forEach /////
+
+                // 전잘변수 순서가 중요함!
+                // btngo.forEach(
+                //     (헐,할,핼)=>{
+                //     console.log('1번 값:',헐);
+                //     console.log('2번 값:',할);
+                //     console.log('3번 값:',핼);
+                // });
+
+            } ////////loadFn함수////////////////
+            ////////////////////////////////////
             
             /************************************ 
                 [ 배열과 컬렉션을 위한 forEach() ]
@@ -189,6 +329,40 @@
             /* 정보출력박스 */
             .minfo {
                 background-color: #d0ffd3;
+            }
+
+            /* 따라다니는 포스터박스 */
+            .flying-poster{
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 200px;
+                height: 300px;
+                background: url(./images/ala1.jpg) no-repeat center/cover;
+                
+                /* 포인터 위치에서 정중앙 이동 */
+                transform: translate(-50%, -50%);
+
+                pointer-events: none;
+                /************************************** 
+                    [ 포인터 이벤트 속성 ]  
+                    pointer-events : auto;
+                    -> 기본값 : 대상 요소에 이벤트 발생함
+                    pointer-events : none;
+                    -> none : 대상 요소에 이벤트 무시함
+                    -> 아래쪽 요소의 이벤트가 발생함!
+                **************************************/
+
+                border: 4px dashed hotpink;
+                border-radius: 20px;
+
+                /* 처음에 안 보이게 하기 */
+                display: none;
+
+                /* 트랜지션 설정하기
+                - 처음 이동시 빨리 움직이고 나중에 천천히
+                ease-out이 가장 자연스럽다! */
+                transition: .3s ease-out;
             }
         </style>
     </head>
