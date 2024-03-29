@@ -10,35 +10,31 @@
     font-family: 'Jua', sans-serif;
 */
 
-/* 초기화 */
-html,body,h1,h2,ul,ol{
-    margin: 0;
-    padding: 0;
-}
-/* 리스트 초기화 */
-ul,ol{
-    /* 블릿,숫자 없앰 : lin */
-    list-style: none;
-}
+/* 리셋 CSS 불러오기 */
+@import url(./reset.css);
+
 body{
     background-color: #000;
 }
 
 /* 공사중 표시 */
 body * {
-    outline: 2px dashed yellow;
+    /* outline: 2px dashed yellow; */
     /* outline: 두 종 색; */
 }
 /* 공통 클래스 */
 /* 파트공통 */
 .part{
-    width: 1200px;
+    /* 최대 크기 이하면 auto 전환! */
+    max-width: 1200px;
     /* 중앙정렬 마.영.오! */
     margin: 0 auto;
 }
 
 /************ 1. 상단영역 ************/
 .top-area{
+    position: relative;
+    /* 부모자격 - .gnb */
     height: 80px;
     /* 배경이미지 */
     background: url(../images/curtain.jpg) repeat-x;
@@ -50,23 +46,193 @@ body * {
     color: aquamarine;
     line-height: 80px;
     text-align: center;
+    /* 글자 글로우 효과 */
+    text-shadow: 0 0 12px aquamarine;
+    /* 애니메이션 */
+    animation: tit-ani .5s ease-in infinite alternate;
+}
+/* 타이틀 애니 키프레임 */
+@keyframes tit-ani{
+    to{
+        text-shadow: 0 0 12px aquamarine;
+    }
+}
+/* 1-2. GNB메뉴 */
+.gnb{
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    z-index: 999;
+}
+.gnb ul{
+    /* flex박스 */
+    display: flex;
+    gap: 0 1.5rem;
+    font-family: 'Jua', sans-serif;
+    font-size: 1.7rem;
+}
+/* 상위 li */
+.gnb>ul>li{
+    position: relative;
+    /* 부모자격 - .smenu */
+    padding-bottom: 10px;
+    /* 하위메뉴와 연결되게 함!
+    오버 이벤트가 끊어지지 않게 함 */
+}
+/* 서브메뉴 */
+.smenu{
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 145px;
+    /* outline: 2px solid yellow; */
+    /* box-shadow: 0 0 5px #fff; */
+    /* 모든 외곽선에 그림자(글로우)효과를 주려면 filter 드랍쉐도우를 사용함! */
+    filter: drop-shadow(0 0 5px #fff);
+    border-radius: 5px;
+    font-size: 1.7rem;
+    line-height: 1.6;
+    padding: 3px;
+    background: url(../images/bg_smenu.png) no-repeat center/cover;
+    /* 처음에 안보임 */
+    display: none;
+}
+/* 상위메뉴 오버시 서브보이기 */
+.gnb ul>li:hover .smenu{
+    display: block;
+}
+/* 가상요소로 삼각형 만들기 */
+.smenu::before{
+    content: '';
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 15px;
+    background-color: #303030;
+    /* 클립패스로 자르기 */
+    clip-path: polygon(0 100%, 50% 0, 100% 100%);
+}
+/* 서브메뉴 ol */
+.smenu ol{
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+/* 사이 구분 선 클래스 */
+.bd-top{
+    border-top: 1px solid #ccc;
+}
+/* 서브메뉴 오버시 글자색 */
+.smenu li:hover a{
+    color: red;
+}
+/* 서브메뉴 오버시 아이콩 */
+.smenu li:hover a::after{
+    content: '🧃';
+    /* 오른쪽 끝에 위치 */
+    float: right;
+}
+/* 예매 */
+.gnb ul>li:nth-child(2) .smenu li:hover a::after{
+    content: '🥞';
+}
+/* 극장 */
+.gnb ul>li:nth-child(3) .smenu li:hover a::after{
+    content: '🌭';
+}
+/* 이벤트&컬처 */
+.gnb ul>li:nth-child(4) .smenu li:hover a::after{
+    content: '🍕';
+}
+
+/* 영사기 박스 */
+.cam{
+    position: absolute;
+    top: -10px;
+    right: -65px;
+}
+.cam img{
+    width: 50px;
+    transform: rotate(30deg);
+    /* 트랜지션 */
+    transition: .3s .3s;
+}
+/* 오버시 영사기 이미지 회전 */
+.gnb:hover .cam img{
+    transform: rotate(0deg);
+    /* 트랜지션 : 오버시 지연없음 */
+    transition: .3s;
+}
+
+/* 오버시 빔박스 보이기 */
+.gnb:hover .beam{
+    width: 200px;
+    /* 트랜지션 : 오버시 지연있음 */
+    transition: width .3s .3s;
+    /* 애니메이션 */
+    animation: beam-ani .05s linear infinite alternate;
+}
+/* 빔 떨림 애니 */
+@keyframes beam-ani{
+    to{
+        opacity: .5;
+    }
+}
+/* 빔 박스 */
+.beam{
+    position: absolute;
+    top: -16px;
+    right: 13px;
+    width: 200px;
+    height: 70px;
+    /* outline: 2px dashed yellow; */
+    background: 
+    url(../images/bim.png) no-repeat right/auto 100%;
+    /* 메뉴보다 아래(카메라보다 아래) */
+    z-index: -1;
+    /* 트랜지션 : 돌아올때 지연없음 */
+    transition: width .3s;
+}
+/* 가상요소로 스크린 만들기 */
+.cam::after{
+    content: '';
+    position: absolute;
+    top: -10px;
+    right: 50px;
+    background: url(../images/clip.gif) no-repeat -50% center/auto 80%;
+    z-index: -2;
+    width: 150px;
+    height: 70px;
+    opacity: 0;
+    /* 트랜지션 */
+    transition: opacity .3s;
+}
+/* 오버시 스크린 보이기 */
+.gnb:hover .cam::after{
+    opacity: 1;
+    /* 트랜지션 */
+    transition: opacity .3s .6s;
 }
 /************ 2. 메인영역 ************/
 .main-area{
     position: relative;
     /* 부모자격 - .screen */
-    height: 788px;
+    /* height: 788px; */
+    /* 높이값 주지 말고 비율박스 만들기 -> aspect-ratio */
+    aspect-ratio: 1200 / 788;
     /* 극장이미지 배경 */
-    background: url(../images/bg.jpg) no-repeat;
+    background: url(../images/bg.jpg) no-repeat center/cover;
 }
 /* 2-1.스크린 */
 .screen{
     position: absolute;
     /* 부모는? .main-area */
-    top: 136px;
-    left: 257px;
-    width: 701px;
-    height: 397px;
+    top: 17.2%;
+    left: 21.3%;
+    width: 58.6%;
+    height: 50.4%;
     background-color: #000;
 }
 /* 유튜브 아이프레임 */
@@ -147,14 +313,53 @@ body * {
     height: 100%;
     /* 줄바꿈 방지 */
     white-space: nowrap;
+    /* 글자체 */
+    font-family: 'Cute Font', cursive;
     /* 글자크기 */
-    font-size: 12px;
+    font-size: min(14px, 1.3vw);
     /* 줄간격 */
     line-height: 2.5;
     /* 반투명 배경 */
     background-color: #000000a3;
 }
+/* 영화 정보 제목만 클자 변경 */
+.mv-info ol li:first-child{
+    color: aqua;
+    font-weight: bold;
+    /* 글자크기 */
+    font-size: min(17px, 1.5vw);
+}
+
 /************ 3. 하단영역 ************/
 .footer-area{
-    height: 100px;
+    display: flex;
+    /* 진행방향 수직정렬(한줄) */
+    align-items: center;
+    gap: 0 20px;
+    padding: 30px;
+    /* height: 100px; */
+}
+/* 3-1. 하단로고 */
+/* 3-2. 회사정보 */
+.co-info address{
+    font-family: 'cute font';
+    font-size: 1.6rem;
+    color: #fff;
+    /* 이탤릭 해제 */
+    font-style: normal;
+
+}
+/* 3-3. SNS */
+.sns-box{
+    /* 플렉스 자식에서 왼쪽 마진을 auto로 주면 오른쪽 끝으로 이동함 */
+    margin-left: auto;
+}
+.sns-box ol{
+    /* 플렉스 박스 */
+    display: flex;
+    gap: 0 10px;
+}
+.sns-box a{
+    font-size: 4rem;
+    color: #fff;
 }
