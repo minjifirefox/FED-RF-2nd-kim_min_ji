@@ -70,8 +70,12 @@ myFn.addEvt(window, "scroll", showIt);
 // 3-1. 스크롤 등장 액션 함수
 function showIt() {
   // 클래스 on 넣기 함수 호출하기
-  // for of 문 호출
-  for (let x of scAct) addOn(x);
+
+  // for of 제어문 처리방법
+  // for (let x of scAct) addOn(x);
+
+  // forEach 메서드 처리방법
+  scAct.forEach(ele=>addOn(ele));
 
   let pos = myFn.getBCR(scAct[0]);
   // 함수 호출 확인
@@ -82,7 +86,7 @@ function showIt() {
 
 // 스크롤 등장 기준 설정 : 화면의 2/3
 const CRITERIA = (window.innerHeight / 3) * 2;
-console.log("기준값:", CRITERIA);
+// console.log("기준값:", CRITERIA);
 
 // [클래스 on 넣기 함수]
 function addOn(ele) {
@@ -160,38 +164,81 @@ function showLetters() {
   // 화면절반크기 변수(포스터 위치에서 뺄 값!)
   const gap = window.innerHeight/2;
 
-  console.log('포스터위치:',posTop,gap);
+  // console.log('포스터위치:',posTop,gap);
 
   ////////// 글자 이동함수
   function moveTit() {
     // 스크롤 위치값 구하기
     let scTop = window.scrollY;
     // 호출확인
-    console.log("타이틀 이동!", scTop);
+    // console.log("타이틀 이동!", scTop);
 
     // 1. 맨 위 원위치하기 : 첫번째 기준보다 작을 때
-    if (scTop < posTop[0]-gap) {
+    if (scTop < posTop[0] - gap) {
       stage.style.top = "0%";
       stage.style.left = "50%";
       stage.style.transition = "1s";
     }
     // 2. 첫번째 포스터 옆으로 이동
-    if (scTop > posTop[0]-gap && scTop < posTop[0]) {
+    if (scTop > posTop[0] - gap && scTop < posTop[0]) {
       stage.style.top = "50%";
       stage.style.left = "25%";
       stage.style.transition = "2s";
     }
     // 3. 두번째 포스터 옆으로 이동
-    if (scTop > posTop[1]-gap && scTop < posTop[1]) {
+    if (scTop > posTop[1] - gap && scTop < posTop[1]) {
       stage.style.top = "70%";
       stage.style.left = "65%";
       stage.style.transition = "1s";
     }
     // 4. 세번째 포스터 옆으로 이동
-    if (scTop > posTop[2]-gap && scTop < posTop[2]) {
+    if (scTop > posTop[2] - gap && scTop < posTop[2]) {
       stage.style.top = "50%";
       stage.style.left = "25%";
       stage.style.transition = ".5s";
     }
   } //////////// moveTit 함수 ////////////////
 } ///// showLetters ///////////////////////
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////떨어지는 여자 구현하기 ///////////////////////////////////////////////////////////////
+// 기본원리 : 스크롤 이동에 따른 화면높이값 범위 안에서 떨어지는 여자 이미지가 아래쪽으로 이동 애니함!
+// 비례식을 세운다!
+// 스크롤 한계 값 : 윈도우 높이 = 스크롤 이동 값 : 이미지 이동 값
+// 이미지 이동 값 = 윈도우 높이 * 스크롤 이동 값 / 스크롤 한계 값
+// 이미지 이동 값 = winH * scTop / scLimit
+
+// 0. 변수 값 세팅하기
+// (1) 스크롤 한계 값 : 전체 document 높이 - 화면 높이
+// 문서 전체 document 높이
+let docH = document.body.clientHeight;
+// 화면 높이
+let winH = window.innerHeight;
+// 스크롤 한계 값
+let scLimit = docH - winH;
+console.log('문서높이:',docH,'\n화면높이:',winH,'\n한계값:',scLimit);
+
+// 1. 대상선정 : 떨어지는 여자 요소
+const woman = myFn.qs('#woman');
+
+// 2. 스크롤 이벤트 설정하기 : window가 이벤트 대상임!
+myFn.addEvt(window,'scroll',moveWoman);
+
+// 3. 함수 만들기
+function moveWoman(){
+  // 1. 스크롤 위치 값
+  let scTop = window.scrollY;
+  // console.log('스크롤 위치 값:',scTop);
+
+  // 2. 떨녀 top 값
+  let wTop = winH * scTop / scLimit;
+  console.log('스위:',scTop,'\n여자:',wTop);
+  // 이미지 이동 값 = 윈도우 높이(winH) * 스크롤 이동 값(scTop) / 스크롤 한계 값(scLimit)
+
+  // 3. 떨녀에게 적용하기
+  woman.style.top = wTop + 'px';
+
+  // 4. 맨위일때 윗쪽으로 숨기기
+  if(scTop === 0) woman.style.top = '-20%';
+
+} /////// moveWoman 함수 /////////////////////////////////////
