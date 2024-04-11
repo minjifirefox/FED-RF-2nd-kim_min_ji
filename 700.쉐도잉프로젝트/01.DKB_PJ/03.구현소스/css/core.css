@@ -17,31 +17,32 @@
     font-family: 'Nanum Gothic', sans-serif;
 */
 
-/* 전체 글자 크기 */
+/* 전체 글자크기 */
 html{
     font-size: 10px;
-    /* rem단위 계산 편의를 위함 */
+    /* rem단위 계산편의를 위함 */
 }
 body{
     /* 글자체 */
     font-family: "Noto Sans KR", Malgun Gothic, dotum, "돋움", Arial, AppleGothic, Sans-serif;
 }
 
-/****************** 공통 클래스 ******************/
+/********* 공통 클래스 *********/
 /* 임시표시타이틀 */
 .temp-tit{
     position: absolute;
     font-size: 2vw;
     color: #ccc;
 }
-/* 중앙 속박스 */
+/* 중앙속박스 */
 .inbox{
     /* 최대가로크기 */
     max-width: 1360px;
     padding: 0 20px;
-    /* 블록박스 중앙 정렬 -> 마.영.오! */
-    margin: 0 auto;
+    /* 블록박스 중앙정렬 -> 마.영.오! */
+    margin: 0 auto;    
 }
+
 /* 그룹파트박스 */
 .group-part{
     /* 상하패딩 넣기 */
@@ -56,12 +57,12 @@ body{
 
 /* 파트박스 */
 .partbox {
-    /* 패딩, 보더 포함 박스 */
+    /* 패딩,보더 포함박스 */
     box-sizing: border-box;
 }
 
 /* 메인영역 col- 박스 */
-.main-area[class^='col-']{
+.main-area [class*='col-'] {
     padding: 10px;
 }
 
@@ -71,6 +72,7 @@ body{
     font-size: 3.8rem;
     font-weight: normal;
 }
+
 /* IR(Images Replacement) 
 - 배경이미지 설명 숨기기 클래스 */
 .ir{
@@ -85,11 +87,12 @@ body{
     display: none;
 }
 
+
 /* 스크롤바 디자인 클래스 */
 /* -webkit- 밴더사명(크롬,사파리) 접두어 */
 /* 클래스명 scbar */
 .scbar::-webkit-scrollbar{
-    /* 전체 스크롤바 크기 변경 */
+    /* 전체 스크롤바 크기변경 */
     width: 7px;
 }
 .scbar::-webkit-scrollbar-thumb{
@@ -102,3 +105,5 @@ body{
     background-color: #ddd;
     border-radius: 5px;
 }
+
+
