@@ -2,6 +2,8 @@
 
 // 변수에 태그를 jsx문법으로 작성하여 할당한다!
 // 주의사항) JSX는 최상위부모가 단 하나여야한다!(기본XML문법과 동일!)
+// JSX 태그 중간에 변수나 수식을 출력할 때는 중괄호만 사용함
+// <div>{변수/표현식}</div>
 
 // 배열 데이터 생성하기
 const data = [
@@ -12,3 +14,39 @@ const data = [
     {이름:"김마리",전화번호:"010-888-4578",생일:"00.01.02"},
 ];
 
+console.log('원본:',data);
+
+// 위의 데어터를 사용하여 table>tr>td 태그 구성하여
+// 코드를 작성한다!
+// map() 메서드를 사용한다!
+// 그런데 과연 이 함수는 JS 순수함수인가?
+// 아니다! 리액트의 map() 메서드는 리액트 전용임
+// 그래서 html 태그를 화면에 출력할 때 JS에서 했던
+// join('') 메서드를 사용하지 않아도
+// 태그가 그대로 클린하게 출력된다!!!
+
+const listCode = data.map(v=>
+    <tr>
+        <td>{v.이름}</td>
+        <td>{v.전화번호}</td>
+        <td>{v.생일}</td>
+    </tr>
+    ); ///////// map //////////////
+
+console.log('map 결과:',listCode);
+
+// 화면출력하기 ///////////////
+// ReactDOM.render(출력할요소,대상요소)
+ReactDOM.render(
+    <React.Fragment>
+        <h1>♥ 나의 친구 리스트 ♥</h1>
+        <table>
+        <tr>
+            <td>이름</td>
+            <td>전화번호</td>
+            <td>생년월일</td>
+        </tr>
+        {listCode}
+        </table>
+    </React.Fragment>,
+document.querySelector('#root'));

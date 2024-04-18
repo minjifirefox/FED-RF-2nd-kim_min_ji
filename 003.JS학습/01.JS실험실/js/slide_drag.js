@@ -1,4 +1,4 @@
-// 05. 드래그 기본 JS - drag.js
+// 슬라이드 드래그 모듈 JS - slide_drag.js
 
 // 나의 함수 불러오기
 import mFn from './my_function.js';
@@ -80,8 +80,15 @@ const dtg = ele;
 // 드래그할 대상의 CSS 기본값을 세팅한다!
 // 필수 세팅 요소는 position : relative / top : 0 / left : 0
 dtg.style.position = 'relative';
-dtg.style.top = '0';
-dtg.style.left = '0';
+// dtg.style.top = '0';
+// 배너가 left값 -220% 기준박스에서 이동함
+// .banbx의 width 값 곱하기 2.2
+// 기준 위치값 변수에 할당!
+let leftVal = mFn.qs('.banbx').offsetWidth*-2.2;
+console.log('left 세팅값:',leftVal);
+
+// left 위치값 최초 셋업! -> px단위 꼭 쓸 것!!!
+dtg.style.left = leftVal + 'px';
 
 // 2. 변수 세팅 ///////////////////////////////////
 // (1) 드래그 상태 변수 만들기
@@ -89,18 +96,19 @@ let dragSts = false;
 
 // false는 드래그 아님, true 드래그 상태!
 // (2) 첫번째 위치 포인트 : first x, first y
-let firstX, firstY;
+let firstX;
 
 // (3) 마지막 위치 포인트 : last x, last y
-let lastX = 0, lastY = 0;
+// -> 최초 위치 세팅값으로 프리세팅!
+let lastX = leftVal;
 // -> 중첩된 최종 위치가 처음에는 계산되지 않았으므로 출발 위치인 0값으로 초기값을 넣어준다!
 // 초기값을 안 넣으면 최초에 값을 더할 때 에러가 발생한다!
 
 // (4) 움직일 때 위치 포인트 : move x, move y
-let moveX, moveY;
+let moveX;
 
 // (5) 위치 이동 차이 계산 결과 변수 : result x, result y
-let resultX, resultY;
+let resultX;
 
 // 3. 함수 만들기 /////////////////////////////////
 // 할당형 함수를 만들 경우 이벤트 설정보다 위에서 만들어준다!
@@ -125,7 +133,6 @@ const dMove = (e) => { // e - 이벤트 객체 전달 변수
         // ->> 두 할당문 중 값이 유효한(true)값이 할당함!
         // DT용 코드와 Mobile용 코드를 동시에 세팅할 수 있다!
         moveX = e.pageX || e.touches[0].screenX;
-        moveY = e.pageY || e.touches[0].screenY;
         // console.log(e.touches[0]);
         // moveX = e.pageX;
         // moveY = e.pageY;
@@ -135,7 +142,6 @@ const dMove = (e) => { // e - 이벤트 객체 전달 변수
         // moveX - firstX
         // moveY - firstY
         resultX = moveX - firstX;
-        resultY = moveY - firstY;
         // -> 순수하게 움직인 거리를 계산함!
         // -> 움직인 위치 - 첫번째 위치 순으로 빼준 이유는?
         // ->>> top, left 위치 이동 양수 음수차를 고려한 순서임
@@ -143,14 +149,13 @@ const dMove = (e) => { // e - 이벤트 객체 전달 변수
         // 3. 이동차를 구한 resultX, resultY 값을 대상 위치값 적용
         // 대상 : 드래그 요소 dtg
         dtg.style.left = resultX + lastX + 'px';
-        dtg.style.top = resultY + lastY + 'px';
         // 처음엔 lastX, lastY 값이 0으로 들어오고
         // 두번째부터는 mouseup 이벤트 발생부터 저장된
         // 최종 이동 위치 값이 더해진다!
 
         // 값 확인
-        console.log(`moveX: ${moveX}, moveY: ${moveY}`);
-        console.log(`resultX: ${resultX}, resultY: ${resultY}`);
+        console.log(`moveX: ${moveX}`);
+        console.log(`resultX: ${resultX}`);
     } //// if ///////////
 
     // 드래그 중(dragSts === true)일 때는 주먹 손(grabbing), 드래그 아닐(dragSts === false) 때 편 손(grab)
@@ -162,8 +167,7 @@ const dMove = (e) => { // e - 이벤트 객체 전달 변수
 const firstPoint = e => {
     // DT용 값과 Mobile값을 동시에 OR문으로 할당함!
     firstX = e.pageX || e.touches[0].screenX;
-    firstY = e.pageY || e.touches[0].screenY;
-    console.log('첫 포인트:',firstX,' | ',firstY);
+    console.log('첫 포인트:',firstX);
 }; //////////// firstPoint 함수 //////////////////////
 
 // (5) 마지막 위치 포인트 세팅 함수 : lastX, lastY 값 세팅
@@ -171,8 +175,7 @@ const firstPoint = e => {
 const lastPoint = () => {
     // 이동 결과 계산된 최종 값을 기존 값에 더함 (+=)
     lastX += resultX;
-    lastY += resultY;
-    console.log('끝 포인트:',lastX,' | ',lastY);
+    console.log('끝 포인트:',lastX);
 }; //////////// firstPoint 함수 //////////////////////
 
 // 4. 드래그 이벤트 설정하기
@@ -188,7 +191,7 @@ mFn.addEvt(dtg, 'mousedown', (e) => {
     dtg.style.cursor = 'grabbing';
 
     // z-index 전역변수(zNum) 숫자를 1씩 높이기
-    dtg.style.zIndex = ++zNum;
+    // dtg.style.zIndex = ++zNum;
     
     console.log('마우스 다운!!!',dragSts);
 }); //////////// mousedown ///////////////
@@ -218,7 +221,6 @@ mFn.addEvt(dtg, 'mouseleave', ()=>{
     // 세팅되지 못한다! 이것을 기존 요소의 위치값으로 보정함!
     // 단, style 위치값 코드는 'px' 단위가 있으므로 parseInt 처리!
     lastX = parseInt(dtg.style.left);
-    lastY = parseInt(dtg.style.top);
 
     console.log('마우스 나감!',dragSts);
 }); ////////// mouseleave ///////////////
