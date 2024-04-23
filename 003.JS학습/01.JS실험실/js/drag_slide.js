@@ -87,6 +87,10 @@ function slideFn(selEl) {
   abtn.forEach((ele) => mFn.addEvt(ele, "click", goSlide));
 
   // 3. 함수만들기
+  /*******************************************************************
+    함수명 : goSlide
+    기능 : 이동버튼 클릭시 이동 분기하기
+  *******************************************************************/
   function goSlide() {
     // a요소 기본이동 막기
     event.preventDefault();
@@ -127,8 +131,13 @@ function slideFn(selEl) {
     let slideSeq = isRight ? 3 : 2;
     addOnSlide(slideSeq);
   } ////////// goSlide 함수 /////////
-  
-  // 중앙 슬라이드 클래스 on 처리 함수
+
+  /************************************************************
+    함수명 : addOnSlide
+    기능 : 중앙 슬라이드 클래스 on 처리함수
+  ************************************************************/
+ 
+ // 중앙 슬라이드 클래스 on 처리 함수
   function addOnSlide(slideSeq){
     mFn.qsaEl(slide,"li").forEach((ele,idx)=>{
       if(idx===slideSeq) ele.classList.add("on");
@@ -136,8 +145,13 @@ function slideFn(selEl) {
     }); /////////// forEach ////////////////////
     
   } /////////// addOnSlide ///////////////////////
-
-  // 블릿순번 변경 함수 /////////////
+  
+  /************************************************************
+    함수명 : chgIndic
+    기능 : 블릿 순번 변경 함수
+  ************************************************************/
+ 
+ // 블릿순번 변경 함수 /////////////
   function chgIndic(isRight) {
     // isRight(0-왼쪽,1-오른쪽)
     // 1. 슬라이드 순번과 일치하는 블릿에 클래스 넣기
@@ -146,11 +160,11 @@ function slideFn(selEl) {
     // isRight값이 true이면 오른쪽버튼이고 순번은 [1]
     // isRight값이 false이면 왼쪽버튼이고 순번은 [0]
     let nowSeq = slide
-      .querySelectorAll("li")
-      [isRight ? 1 : 0].getAttribute("data-seq");
-
+    .querySelectorAll("li")
+    [isRight ? 1 : 0].getAttribute("data-seq");
+    
     // console.log("현재슬라이드 순번:", nowSeq);
-
+    
     // 2. 해당순번 블릿li에 클래스 on넣기
     // 블릿전체순회시 해당순번에 on넣고 나머지는 on빼기
     indic.forEach((ele, idx) => {
@@ -159,7 +173,12 @@ function slideFn(selEl) {
     }); ///////// forEach ///////////
   } /////////// chgIndic함수 ////////////
 
-  // 슬라이드 오른쪽 버튼 클릭시 왼쪽 방향 이동함수 ////////////
+  /************************************************************
+    함수명 : rightSlide
+    기능 : 왼쪽 방향 이동(오른쪽버튼)
+  ************************************************************/
+ 
+ // 슬라이드 오른쪽 버튼 클릭시 왼쪽 방향 이동함수 ////////////
   function rightSlide() {
     //1.대상이동하기 : -330%
     slide.style.left = "-330%";
@@ -175,62 +194,78 @@ function slideFn(selEl) {
       // 5.트랜지션 없애기
       slide.style.transition = "none";
     }, TIME_SLIDE);
+
+    // 슬라이드 커버 만들기 함수 호출
+    coverDrag();
   } //////////// rightSlide 함수 ////////////
 
-  // 슬라이드 왼쪽 버튼 클릭시 오른쪽 방향 이동함수 ////////////
-  // 드래그 이동시엔 left 값을 -330%가 아닌
-  // 드래그가 이동된 값을 적용한 left 값을 적용한다!
-  // 함수 전달 변수를 leftVal = "330%"로 기본 입력값 처리하면
-  // 함수 호출 시 전달 값이 없는 경우엔 기본 값으로 처리하고
-  // 함수 호출 시 전달 값이 있으면 그 전달될 값으로 처리한다!
-  // 이것을 함수 전달 변수 기본 입력 값 처리라고 한다!
-  function leftSlide(leftVal="-330%") {
+  /************************************************************
+    함수명 : leftSlide
+    기능 : 오른쪽 방향 이동(왼쪽버튼)
+  ************************************************************/
+ 
+ function leftSlide(leftVal="-330%") {
+    // 슬라이드 왼쪽 버튼 클릭시 오른쪽 방향 이동함수 ////////////
+    // 드래그 이동시엔 left 값을 -330%가 아닌
+    // 드래그가 이동된 값을 적용한 left 값을 적용한다!
+    // 함수 전달 변수를 leftVal = "330%"로 기본 입력값 처리하면
+    // 함수 호출 시 전달 값이 없는 경우엔 기본 값으로 처리하고
+    // 함수 호출 시 전달 값이 있으면 그 전달될 값으로 처리한다!
+    // 이것을 함수 전달 변수 기본 입력 값 처리라고 한다!
     console.log('왼쪽 버튼 이동 left값:',leftVal);
     // leftVal - li 앞에 이동 시 left 값 설정 변수
     // 1. 슬라이드 li 새로 읽기
     let eachOne = slide.querySelectorAll("li");
-
+    
     // 2. 맨뒤li 맨앞으로 이동
-      // 놈.놈.놈 -> insertBefore(넣을놈,넣을놈전놈)
-      slide.insertBefore(eachOne[eachOne.length - 1], eachOne[0]);
-
-      // 3. left값 -330% 만들기 : 들어올 준비 위치!
-      slide.style.left = leftVal;
-
-      // 4. 트랜지션 없애기
-      slide.style.transition = "none";
-
-      // 같은 left값을 동시에 변경하면 효과가 없음!
-      // 비동기적으로 처리해야함!
+    // 놈.놈.놈 -> insertBefore(넣을놈,넣을놈전놈)
+    slide.insertBefore(eachOne[eachOne.length - 1], eachOne[0]);
+    
+    // 3. left값 -330% 만들기 : 들어올 준비 위치!
+    slide.style.left = leftVal;
+    
+    // 4. 트랜지션 없애기
+    slide.style.transition = "none";
+    
+    // 같은 left값을 동시에 변경하면 효과가 없음!
+    // 비동기적으로 처리해야함!
       // -> setTimeout으로 싸주기!
       // 시간은 0이어도 비동기 처리므로 효과있음!
-
+      
       setTimeout(() => {
         // 4. left값 -220%으로 들어오기 -> px 값으로 변환!
         slide.style.left = originalValue + "px";
-
+        
         // 5. 트랜지션주기
         slide.style.transition = TIME_SLIDE + "ms ease-out";
       }, 0);
-  } //////////// leftSlide 함수 ////////////
 
-  /********************************** 
-        자동넘기기 기능구현
-        -> 일정시간간격으로 오른쪽버튼 클릭
-        -> 사용JS내장함수 : setInterval()
-        -> 버튼클릭 실행 메서드: click()
-        대상: 오른쪽버튼 - .ab2 -> abtn[1]
-    **********************************/
-  // 인터발변수
-  let autoI;
-  // 인터발타이밍함수를 변수에 할당후
-  // clearInterval(할당변수) 해야 멈출 수 있다!
+      // 슬라이드 커버 만들기 함수 호출
+      coverDrag();
+    } //////////// leftSlide 함수 ////////////
+    
+    /********************************** 
+     자동넘기기 기능구현
+     -> 일정시간간격으로 오른쪽버튼 클릭
+     -> 사용JS내장함수 : setInterval()
+     -> 버튼클릭 실행 메서드: click()
+     대상: 오른쪽버튼 - .ab2 -> abtn[1]
+     **********************************/
+    // 인터발변수
+    let autoI;
+    // 인터발타이밍함수를 변수에 할당후
+    // clearInterval(할당변수) 해야 멈출 수 있다!
 
   // 타임아웃변수
   let autoT;
   // 타임아웃함수도 마찬가지임!
   // clearTimeout(할당변수) 해야 실행 쓰나미를 막을 수 있다!
 
+  /************************************************************
+    함수명 : slideAuto
+    기능 : 인터발 호출
+  ************************************************************/
+  
   // 인터발호출 함수 //////////
   function slideAuto() {
     autoI = setInterval(() => {
@@ -252,6 +287,11 @@ function slideFn(selEl) {
   // 인터발함수 최초호출!
      slideAuto();
 
+  /************************************************************
+    함수명 : clearAuto
+    기능 : 자동 넘김을 멈추기(인터발삭제)
+  ************************************************************/
+
   // 버튼을 클릭할 경우를 구분하여 자동넘김을 멈춰준다!
   function clearAuto() {
     // 자동넘김 지우기
@@ -266,6 +306,20 @@ function slideFn(selEl) {
     autoT = setTimeout(slideAuto, 5000);
     // 결과적으로 5초후 인터발재실행은 하나만 남는다!
   } //////////// clearAuto 함수 ///////////
+
+  /************************************************************
+    함수명 : coverDrag
+    기능 : 슬라이드 이동시 드래그 막기
+  ************************************************************/
+  function coverDrag(){
+    // selEl로 전달된 대상에 클래스 on을 줘서
+    // 가상요소로 세팅된 슬라이드 커버가 나오게 함
+    selEl.classList.add("on");
+    // 슬라이드 기본 이동시간(TIME_SLIDE) 후 on 제거
+    setTimeout(() => {
+      selEl.classList.remove("on");
+    }, TIME_SLIDE);
+  } //////////////// coverDrag ////////////////////
 
   ////////////////////////////////////////////////////
   /////// 드래그 기능 구현 구역 ///////////////////////
@@ -332,7 +386,7 @@ function slideFn(selEl) {
     // 드래그 상태는 dragSts 값이 true인 경우에만 허용!
     if (dragSts) {
       // 0. 자동넘김 멈춤함수 호출하기
-      clearAuto();
+      // clearAuto();
 
       // // console.log('드래그 중~!');
 
@@ -443,7 +497,10 @@ function slideFn(selEl) {
   // (1) 마우스 다운 이벤트 함수 연결하기
   mFn.addEvt(dtg, "mousedown", (e) => {
         // 0. 자동넘김 멈춤함수 호출하기
-        clearAuto();
+        // clearAuto();
+        // 자동 호출을 지우기만 해서 자동 시작 안 함!
+        clearInterval(autoI);
+        clearTimeout(autoT);
 
     // 드래그 상태값 true로 변경!
     dTrue();
@@ -501,7 +558,10 @@ function slideFn(selEl) {
   // (1) 터치스타트 이벤트 함수 연결하기
   mFn.addEvt(dtg, "touchstart", (e) => {
     // 0. 자동넘김 멈춤함수 호출하기
-    clearAuto();
+    // clearAuto();
+    // 자동 호출을 지우기만 해서 자동 시작 안 함!
+    clearInterval(autoI);
+    clearTimeout(autoT);
 
     // 드래그 상태값 true로 변경!
     dTrue();
