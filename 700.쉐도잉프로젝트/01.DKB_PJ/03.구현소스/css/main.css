@@ -8,7 +8,7 @@
 /* 그리드 12 불러오기 */
 @import url(./grid_12_flex.css);
 
-/* 드래그 슬라이드 CSS 불러오기 */
+/* 드래그 슬라이드 CSS불러오기 */
 /* @import url(./drag_slide.css); */
 
 /* 공사중 표시 */
@@ -221,7 +221,6 @@ body * {
     font-size: 2rem;
     padding-top: 1.4rem;
 }
-
 /************** 7. 최신동영상영역 **************/
 .clip-video-area{
     position: relative;
@@ -241,8 +240,8 @@ body * {
 .clip-box li {    
     flex-basis: 25%;
     flex-shrink: 0;
-    /* 플렉스 gap 속성 대신 패딩으로 처리!
-    이유는? 드래그 시 영역 아웃 현상 때문! */
+    /* 플렉스 gap 속성대신 패딩으로 처리!
+    이유는? 드래그시 영역아웃현상때문! */
     padding: 0 1.1%;
     box-sizing: border-box;
 }
@@ -313,6 +312,7 @@ body * {
     color: #fff;
     border: none;
     background-color: rgba(0, 0, 0, 0.6); 
+    cursor: pointer;
 }
 /* 왼쪽버튼 */
 .btn-box button:first-child{
@@ -323,5 +323,5 @@ body * {
 /* 오른쪽버튼 */
 .btn-box button:last-child{
     right: -35px;
-    display: none;
+    /* display: none; */
 }

@@ -16,9 +16,13 @@
     box-sizing: border-box;
     
     /* outline: 5px dotted blue; */
+    
+    /* 선택 및 드래그 방지 */
+    user-select: none;
+    -webkit-user-drag: none;
 }
 
-/* 가상요소로 드래그 막기 장치 */
+/* 가상요소로 드래그 막기장치 */
 .banbx.on::after{
     content: "";
     position:absolute;
@@ -35,7 +39,7 @@
     display: flex;
     /* 플렉스박스!!! */
     gap: 0 10%;
-    /* 양쪽간격 기준 박스의 10% 크기 */
+    /* 양쪽간격 기준박스의 10%크기 */
 
     /*사진을 싸고 있는 슬라이드*/
     position: absolute;
@@ -85,12 +89,13 @@
     /* 이미지 비율유지 채우기! */
 }
 
-/* 이동버튼, 블릿 -> .controls
-부모 박스에 클래스 no가 적용될 경우
-컨트롤스 모두 이벤트 통과! */
+/* 이동버튼, 블릿 -> .controls 
+부모박스에 클래스 no가 적용될 경우 
+컨트롤스 모두 이벤트 통과!*/
 .no .controls {
     pointer-events: none;
 }
+
 
 /*이동버튼*/
 .abtn {
