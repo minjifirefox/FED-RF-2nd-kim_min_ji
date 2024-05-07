@@ -14,6 +14,10 @@ import slideFn from "./slide.js";
 import gnbData from "../data/gnb_data.js";
 console.log(gnbData);
 
+// 콤보박스 데이터 불러오기 ///
+import comboData from "../data/combo_data.js";
+console.log(comboData);
+
 export default function setElement() {
   // 1.대상선정: #top-area, #ban-area,
   //          #spart-menu, #footer-area
@@ -35,6 +39,10 @@ export default function setElement() {
 
   // 3-2. slideFn 슬라이드 기능함수 호출!
   slideFn();
+
+  // 3-3. bindCombo 하단 콤보박스 바인딩 함수 호출!
+  bindCombo();
+
 } /////////// setElement 함수 ///////////////
 
 // [ GNB메뉴코드 만들기 함수 ] ///////
@@ -88,3 +96,91 @@ function makeMenu() {
     
 `;
 } ////////// makeMenu 함수 //////////
+
+// 콤보박스 바인딩 함수
+function bindCombo(){
+  // 1. 대상선정 : #brand, #corp
+  const brandBox = document.querySelector("#brand");
+  const corpBox = document.querySelector("#corp");
+
+  console.log("콤보 바인딩!",brandBox,corpBox);
+
+  // 2. 데이터 바인딩 하기
+  // 2-1. 브랜드 바로가기 콤보박스 : 단순바인딩(option만)
+  // 데이터 대상 : comboData.brand
+
+
+  // 대상요소 내부 데이터 넣기
+  // 배열 데이터 .map().join('')
+  brandBox.innerHTML = 
+  `<option value="init">브랜드 바로가기</option>`+
+  comboData.brand.map((v,i)=>`
+    <option value="brand${i+1}">${v}</option>
+  `).join('');
+  
+  // 2-2. 계욜사 바로가기 콤보박스
+  // -> 복합바인딩 : optgroup > option
+  // 데이터 분석 : 객체로 된 데이터이므로 map()을 쓰려면
+  // 객체의 키(key)를 배열로 추출하여 사용한다!
+  // Object.keys(객체) -> 키배열!
+  // 객체의 값을 사용할 경우는 원본 객체[키]
+
+  // 데이터 대상 : comboData.corp
+  const corpData = Object.keys(comboData.corp);
+  console.log(corpData);
+
+  // 데이터 만들어서 넣기
+  corpBox.innerHTML = 
+  `<option value="init">계열사 바로가기</option>`+
+  corpData.map((v,i)=>`
+    <optgroup label="${v}">
+    ${
+      // 해당 객체의 값은 키 배열 값과 매칭함!
+      // ov변수는 객체가 가지는 배열 값임
+      comboData.corp[v].map((ov,oi) => `
+        <option value="corp${i+1}-${oi+1}">${ov}</option>
+      `).join('')
+    }
+    </optgroup>
+  `).join('');
+
+  // 3. 선택박스 선택 변경시 링크 이동하기
+  // 3-1. 브랜드 바로가기 링크 이동하기
+  // 대상 : brandBox 변수
+  // 이벤트 : change
+  brandBox.addEventListener('change', openWindow);
+
+  // 3-1. 계열사 바로가기 링크 이동하기
+  // 대상 : corpBox 변수
+  // 이벤트 : change
+  corpBox.addEventListener('change', openWindow);
+  
+} //////////// bindCombo 함수 ///////////////////
+
+// 링크 이동함수 ////////////////
+function openWindow(){ // url 받아서 처리
+  // 현재 나 자신의 아이디는?
+  // console.log(this.id);
+
+  // 0. option 값이 'init'일 경우 돌아가!
+  // if(this.value == 'init') return;
+
+  // 1. 이동할 주소
+  // comboData.brandLink 또는 comboData.corpLink 객체 선택
+  // 객체 이름 조합을 (아이디명+"Link")
+  // 그 하위의 option 값을 url 값으로 가져옴!
+  let url = comboData[this.id+"Link"][this.value];
+  console.log('브랜드 어디?',url);
+  // -> 만약 데이터가 없으면 url 변수의 값은 세팅되지 못하여
+  // undefined 처리된다! 이것을 if문으로 처리하여
+  // 아래 새 창 띄우기 코드를 감싸준다!
+  // url 값이 세팅되지 않으면 새 창 열기 코드는 실행되지 않음
+  // 따라서 위의 "init" 코드로 별도의 처리가 불필요함!
+  // undefined는 if문에서 false 처리됨!
+  
+  // 2. 선택 option 값의 주소로 이동하기
+  // 새창열기 : window.open()
+  if(url) window.open(url);
+  else alert("선택을 변경해 주세요!");
+
+} ///////////// openWindow 함수 //////////////////////////
