@@ -8,7 +8,7 @@ setElement(); // 함수호출!!!
 import myFn from "./my_function.js";
 
 // 부드러운 스크롤 불러오기
-import { startSS, setScrollPos } from "./smoothScroll23.js";
+import SmoothScroll from "./smoothScroll23.js";
 
 // 데이터 셋팅 불러오기 //////
 import * as dkbData from "../data/dkb_data.js";
@@ -24,7 +24,7 @@ import setSlide from "./drag_slide_multi.js";
 
 
 // 1. 부드러운 스크롤 호출
-startSS();
+const mySmooth = new SmoothScroll(document, 30, 20);
 
 // console.log('모듈로 메인JS호출!!!',
 // document.querySelector('.top-menu'));
@@ -213,3 +213,69 @@ introMv.onclick = () => {
 
 // 드래그 슬라이드 태그 구성후 호출하기!
 setSlide('banbx');
+
+
+/***************************************************************************** 
+  메인 페이지용 도깨비 메튜 스크롤 이동 제이쿼리 구현
+*****************************************************************************/
+// 메뉴 클릭 대상 : .spart-menu a
+$('.spart-menu a').click(e=>{
+  // a 요소 클릭시 기본 이동 막기
+  e.preventDefault();
+
+  // 1. 클릭한 a요소의 글자 읽어오기
+  let txt = $(e.target).text();
+  console.log(txt);
+
+  // 2. 이동할 위치 값 알아내기
+  let pos;
+  // 2-1. 이동할 위치의 박스 아이디 매칭하기
+  switch(txt){
+    case "미리보기": pos = "#preview-area"; break;
+    case "프로그램 소개": pos = "#intro-area"; break;
+    case "동영상": pos = "#clip-video-area"; break;
+    case "현장 포토": pos = "#real-photo-area"; break;
+    case "대표 포스터": pos = "#main-photo-area"; break;
+  } ////////////// switch case ////////////////////////////////////
+
+  // 만약 해당된 요소가 없으면 여기로 돌아가!
+  // 위에서 할당 안되면 undefined이면 if문에서 false 처리됨
+  // !(NOT)연산자로 반대로 뒤집으면 false일 때 처리함!
+  if(!pos) return;
+
+  // 2-2. 해당 박스 아이디의 위치 값 알아내기
+  // offset().top 제이쿼리 top 위치 값 정보
+  pos = $(pos).offset().top;
+  console.log('위치값:',pos);
+
+  // 3. 스크롤 애니메이션 이동하기
+  // 제이쿼리는 이것을 정말 잘한다!!!
+  // $("html, body").animate({scrollTop: 몇 px},시간,이징,함수)
+  $("html, body")
+  .animate({scrollTop: pos + "px"},
+  800, // 시간 (1/1000초)
+  "easeInOutSine", // 이징(https://easings.net)
+  // 콜백함수(애니 후 호출되는 함수)
+  ()=>{
+    // 이동 후 부드러운 스크롤 위치값 업데이트 필수
+    // 이것 안하면 위치 이동 후 스크롤시 튐!
+    // 생성자 함수 하위 객체 변수로 등록된 함수를 호출함!
+    mySmooth.setScrollPos(pos);
+    
+  }
+  );
+
+}); /////////// 도깨비 파트 메뉴 클릭 함수 ///////////////////////
+
+// 개별 박스에 부드러운 스크롤 생성자 함수 적용하기 연습
+// $(".preview-box").css({
+//   height: "200px",
+//   overflow: "auto"
+// })
+// .on("wheel",e=>{
+//   e.stopPropagation();
+// })
+
+// // 부드러운 스크롤 개별박스 적용
+// const smallSmooth = 
+// new SmoothScroll(myFn.qs(".preview-box"),20,30)
