@@ -77,21 +77,22 @@ ol {
     
     outline: 5px dotted blue;
 
-    /* 드래그 선택영역 안 잡히게 하기 */
+    /* 드래그 선택영역 안잡히게하기 */
     -webkit-user-drag: none;
     user-select: none;
 }
 
-/* 배너 최상위 박스에 드래그 막기 장치 가상 요소 */
-.banbx::after{
-    content: '';
-    position: fixed;
+/* 배너 최상위박스에 드래그 막기장치 가상요소 */
+.banbx.on::after{
+    content: "";
+    position:absolute;
+    transform: scaleY(1.1);
     top: 0;
-    left: 0;
-    width: 100%;
+    left: -50%;
+    width: 200%;
     height: 100%;
-    z-index: 99;
-    background-color: rgba(163, 163, 234, 0.694);
+    z-index:99;
+    /* background-color: rgba(43, 55, 224, 0.5); */
 }
 
 .slide {
@@ -139,7 +140,7 @@ ol {
     /* 트랜지션 */
     transition: .4s ease-in-out;
 }
-/* 3번째가 주인공이므로 원래밝기로 조금 크게변경! */
+/* li.on이 주인공이므로 원래밝기로 조금 크게변경! */
 .slide li.on{
     filter: brightness(100%);
     transform: scale(1.1);

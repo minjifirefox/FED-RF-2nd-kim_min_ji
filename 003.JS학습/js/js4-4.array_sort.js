@@ -110,7 +110,8 @@ import mFn from "./my_function.js";
       (5) 활용케이스 : 아이디검사 결과 리턴
       (6) 코드예 :
           변수 = 배열.find(v=>{
-              if(v[속성명].indexOf(검색어)!==-1) return true;
+              if(v[속성명].indexOf(검색어)!==-1) 
+              return true;
           })
           -> 배열을 자동순회하여 if문에 해당되는 데이터가 있으면
           return true 하여 할당된 변수에 저장하고 문장이 바로 끝난다!
@@ -141,7 +142,7 @@ import mFn from "./my_function.js";
       예) 
       if(문자열.indexOf(검색문자열)!==-1){결과리턴}
 
-      *************************************************
+*************************************************
 
       [ 객체를 배열로 변환하여 리스트 만들기 : 정렬시 필수! ]
 
@@ -161,7 +162,7 @@ import mFn from "./my_function.js";
 
           (2) 변경확인 
               변경전 : {속성1:값1,속성2:값2}
-              결과 :
+              결과:
               키배열 - Object.keys(객체)
               변경후 : [속성1,속성2]
 
@@ -189,8 +190,9 @@ import mFn from "./my_function.js";
 
       3. 새로구성한 객체 변환 배열로 기존 배열 메서드를 사용하여
           정렬, 검색 후 정렬 등을 수행한다!!
-******************************************************/
 
+
+******************************************************/
 
 // 숫자값 배열
 const arrNumber = [4, 5, 8, 10, 2, 1, 9, 3, 7, 6];
@@ -543,8 +545,6 @@ function sortingFn(evt, cta, arrData, exBox) {
   updateCode(xxx, exBox);
 
   console.log("검색결과변수값:",searchResult);
-  // 검색결과변수 초기화
-  searchResult = null;
 } ////////////// sortingFn 함수 ////////////////
 
 //////////////////////////////////////////////
@@ -611,9 +611,9 @@ mFn.addEvt(btnTotal, "click", () => {
   updateCode(list2, showList4);
   // 2. 검색어 지우기
   keyWord.value = "";
-  // 3. 검색 결과 변수 초기화
+  // 3. 검색결과변수 초기화
   searchResult = null;
-  // 4. 정렬 선택 값을 초기화
+  // 4. 정렬선택값을 초기화
   sel4.value = "0";
 });
 // (3) 입력창 키보드입력시 엔터키 구분하여 검색하기
@@ -624,7 +624,7 @@ mFn.addEvt(keyWord, "keypress", (e) => {
   } ////// if //////
 });
 
-// 검색 결과 배열 값 공유 변수
+// 검색결과 배열값 공유변수
 let searchResult;
 
 // 4-6. 검색함수 만들기 ////////////////
@@ -667,10 +667,10 @@ function searchingFn() {
   // 5. 결과를 화면에 보여주기 : updateCode 함수호출
   updateCode(result, showList4);
 
-  // 6. 검색 결과를 공유 변수에 저장하기
+  // 6. 검색결과를 공유변수에 저장하기
   searchResult = result;
 
-  // 7. 검색 후엔 항상 정렬 선택 값을 초기화해준다!
+  // 7. 검색후엔 항상 정렬선택값을 초기화해준다!
   sel4.value = "0";
 } ////////////// searchingFn 함수 ///////////
 
@@ -685,9 +685,10 @@ const cta4 = mFn.qs(".cta4");
 // -> 실제 정렬을 적용하여 리스트를 갱신한다!
 // -> 정렬 적용시 정렬기준 대상 선택항목을 가져가야함!
 mFn.addEvt(sel4, "change", 
-(e) => sortingFn(e, cta4.value, searchResult?searchResult:list2, showList4));
-// searchResult 값에 할당되어 true이면 이 값을 보내고
-// 아니면 원본 list2를 보낸다!
+(e) => sortingFn(e, cta4.value, 
+  searchResult?searchResult:list2, showList4));
+  // searchResult값에 할당되어 true 이면 이 값을 보내고
+  // 아니면 원본 list2를 보낸다!
 
 // (4) 정렬기준 대상 선택 변경시
 // -> 정렬종류 대상 초기화하기("정렬선택"으로 변경!)
@@ -697,52 +698,61 @@ mFn.addEvt(cta4, "change", () => {
   sel4.value = "0";
 }); //////////// change 이벤트 함수 //////////
 
+
 // 5. 객체원본 배열로 변환하기
 // (1) 데이터 : 객체데이터
 const list3 ={ 
   item1:{
-    idx: 45,
+      idx: 45,
       tit: "강남당근마켓에 가자",
       cont: "다니엘 당근마켓이 정말로 싸고 좋다구~!",
-    },
-    item2:{
+  },
+  item2:{
       idx: 94,
       tit: "나라점심에 뭐먹지?",
       cont: "강남오스틴님 생일 서포트 안내",
-    },
-    item3:{
+  },
+  item3:{
       idx: 22,
       tit: "다니엘 직돌이는 쉬고싶다~!",
       cont: "마동석 활동정지에 대한 파생글 무통보 삭제 및 경고",
   },
   item4:{
-    idx: 111,
+      idx: 111,
       tit: "라면 올해는 다른 회사로 이직한다!",
       cont: "나라 갈라콘 서포트에 많은 참여 부탁드립니다!",
   },
 }; /////////////// list3 ///////////// 
 
-console.log("List3의 원본 객체:",list3);
-console.log("List3의 키 배열:",Object.keys(list3));
-console.log("List3의 값 배열:",Object.values(list3));
+console.log("list3 원본객체:",list3);
+console.log("list3의 키배열:",Object.keys(list3));
+console.log("list3의 값배열:",Object.values(list3));
 
-// 5-1. 출력대상선정 : showList5
+// 5-1. 출력대상선정: showList5
 const showList5 = mFn.qs(".showList5");
-// console.log(ShowList5);
+// console.log(showList5);
 
-// 5-2. 객체 데이터를 값 배열로 변환하여 변수 할당
-const arrList3 = Object.values(list3)
+// 5-2. 객체데이터를 값배열로 변환하여 변수할당
+const arrList3 = Object.values(list3);
 
-// 5-2. 객체 데이터를 값 배열로 변환하여
-// 리스트 생성 함수에 보내어 리스트 화면 출력하기
+// 5-2. 객체데이터를 값배열로 변환하여 
+// 리스트생성함수에 보내어 리스트 화면 출력하기
 updateCode(arrList3, showList5);
+
+// 5-3. 정렬변경 이벤트 발생시 실제 정렬 변경하기 ////
+// - change 이벤트 대상 선택박스들
+// (1) 정렬종류 대상: .sel5
+const sel5 = mFn.qs(".sel5");
+// (2) 정렬기준 대상: .cta5
+const cta5 = mFn.qs(".cta5");
+
 
 // (3) 정렬종류 대상 선택 변경시
 // -> 실제 정렬을 적용하여 리스트를 갱신한다!
 // -> 정렬 적용시 정렬기준 대상 선택항목을 가져가야함!
 mFn.addEvt(sel5, "change", 
 (e) => sortingFn(e, cta5.value, arrList3, showList5));
-// list3는 객체이므로 값 배열로 변환한 배열을 보낸다!
+  // list3는 객체이므로 값배열로 변환한 배열을 보낸다!
 
 // (5) 정렬기준 대상 선택 변경시
 // -> 정렬종류 대상 초기화하기("정렬선택"으로 변경!)

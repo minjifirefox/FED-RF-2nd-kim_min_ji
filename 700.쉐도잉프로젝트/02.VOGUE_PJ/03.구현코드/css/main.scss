@@ -1,11 +1,12 @@
 // 보그 JS 메인 페이지 SCSS
 
-// 공통 부분 파일 불러오기
-// 부분 사스 파일도 언더바를 생략하여 부를 수 있다
-// 확장자가 scss/sass가 기본이므로 생략함!
+// 공통 부분파일 불러오기
+// 부분 사스파일도 언더바를 생략하여 부를 수 있다
+// 확장자가 scss/sass 가 기본이므로 생략함!
 @import "./common/reset";
 @import "./common/core";
 @import "./common/common";
+
 
 // 메인페이지용 CSS
 

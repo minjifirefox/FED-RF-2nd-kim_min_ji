@@ -95,7 +95,7 @@ body {
 }
 
 
-/* 등장하는 글자 세팅 */
+/* 등장하는 글자 셋팅 */
 
 .stage {
   display: flex;
@@ -129,17 +129,20 @@ body {
   width: 10vw;
   transition: top .6s ease-out;
   /* 애니메이션 */
-  animation: woman-ani 4s infinite linear;
+  animation: woman-ani 2s ease-in-out infinite;
 }
 /* 떨녀 애니 */
-@keyframes woman-ani{
+@keyframes woman-ani {
   0%{
-    transform: translateX(-50%) rotate(0deg) scale(1);    
+    transform: 
+    translateX(-50%) rotate(0deg) scale(1);
   }
   50%{
-    transform: translateX(-50%) rotate(360deg) scale(3);    
+    transform: 
+    translateX(-50%) rotate(360deg) scale(3);
   }
   100%{
-    transform: translateX(-50%) rotate(720deg) scale(1);    
+    transform: 
+    translateX(-50%) rotate(720deg) scale(1);
   }
 } /* woman-ani */

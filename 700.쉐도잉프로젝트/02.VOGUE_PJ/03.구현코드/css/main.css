@@ -68,10 +68,6 @@ font-family: 'Roboto Condensed', sans-serif;
   4. bgi - background image 관련 속성
 */
 /* 공사중 표시 */
-body * {
-  outline: 1px dashed gray;
-}
-
 /************* 2. 공통 class *************/
 /* 2-1. 중앙 속박스 */
 .ibx {
@@ -200,7 +196,61 @@ body * {
 
 /* 보그 PJ 공통 CSS - common.css */
 /* 상단, 하단 공통 모듈 CSS */
-/******************************************* 1.상단영역 *******************************************/
+/****************** 1.상단영역 ******************/
+#top-area {
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+  /***************************************************************** 
+    상단영역 겉박스
+  *****************************************************************/
+}
+#top-area.on {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  z-index: 999;
+  /* 1. 상단영역 최소높이 해제 */
+  /* 2. 상단메뉴 없애기 */
+  /* 3. 로고 박스 */
+  /* 5. GNB박스 */
+}
+#top-area.on .top-area {
+  min-height: 50px;
+}
+#top-area.on .tmenu {
+  display: none;
+}
+#top-area.on .logo {
+  position: absolute;
+  left: 0;
+  /* 부모는? #top-area */
+  padding: 10px;
+  height: auto;
+  margin-bottom: 0;
+  /* 로고 이미지 */
+}
+#top-area.on .logo img {
+  width: 100px;
+}
+#top-area.on .gnb {
+  min-height: 45px;
+  padding-top: 5px;
+  /* GNB메뉴 a */
+}
+#top-area.on .gnb ul {
+  gap: 0 35px;
+}
+#top-area.on .gnb a {
+  color: #333;
+  font-size: 14px;
+}
+#top-area.on .gnb a:hover {
+  color: red;
+}
+
 .top-area {
   /* 최소높이 */
   min-height: 206px;
@@ -234,7 +284,7 @@ body * {
 }
 .tmenu .sns a:hover {
   opacity: 0.8;
-  color: lightcoral;
+  color: hotpink;
 }
 .tmenu .sns a.fi-twitter {
   font-size: 13px;
@@ -292,7 +342,7 @@ body * {
   color: #747474;
 }
 .tmenu .sideMenu .smbx > li .smsub a:hover {
-  background-color: #fafafa;
+  background-color: pink;
   color: #333;
 }
 .tmenu .sideMenu .smbx > li:hover .smsub {
@@ -300,7 +350,6 @@ body * {
   height: auto;
 }
 
-/* 1-2.로고박스 */
 .logo {
   height: 104px;
   margin-bottom: 10px;
@@ -327,8 +376,8 @@ body * {
 }
 .gnb ul li {
   /* padding-right: 45px; 
-     -> 사이간격을 li에 패딩으로 안주고
-     부모요소인 flex박스에서 gap속성으로 준다! */
+    -> 사이간격을 li에 패딩으로 안주고
+    부모요소인 flex박스에서 gap속성으로 준다! */
   font-family: "Roboto Condensed", sans-serif;
   line-height: 40px;
 }
@@ -347,16 +396,75 @@ body * {
   color: red;
 }
 
-/******************************************* 2.메인영역 *******************************************/
+/****************** 2.메인영역 ******************/
 .main-area {
-  /* 최소높이 : 컨텐츠가 작을 경우 대비 */
+  /* 최소높이 : 컨텐츠가 작을 경우대비 */
   min-height: 600px;
 }
 
-/******************************************* 3.하단영역 *******************************************/
+/****************** 3.하단영역 ******************/
 .footer-area {
   /* 최소높이 */
   min-height: 285px;
+  background-color: #000;
+  padding: 70px;
+  box-sizing: border-box;
+  /* 글씨체 공통 */
+  font-family: "Roboto", nbg;
+}
+.footer-area .blogo {
+  text-align: center;
+}
+.footer-area .addr {
+  color: #747474;
+  text-align: center;
+  font-size: 11px;
+  /* address 요소 기본 이탤릭해제 */
+  font-style: normal;
+  margin: 20px 0 10px;
+}
+.footer-area .blink {
+  /* 플렉스박스 */
+  display: flex;
+  /* 진행방향정렬 : 중앙 */
+  justify-content: center;
+  /* 플렉스 랩핑박스 */
+  flex-wrap: wrap;
+  /* 사이간격 gap: 위아래 양쪽 */
+  gap: 0 12px;
+}
+.footer-area .blink a {
+  color: #747474;
+  font-size: 13px;
+}
+.footer-area .blink li:last-child a {
+  font-weight: bold;
+}
+
+/* 위로가기 버튼 */
+.tbtn {
+  position: fixed;
+  bottom: -35px; /* 아랫쪽에 나가있음 */
+  right: 75px;
+  width: 48px;
+  height: 35px;
+  text-align: center;
+  line-height: 35px;
+  background-color: #333;
+  border-radius: 4px 4px 0 0;
+  color: #fff;
+  z-index: 9999;
+  font-size: 12px;
+  opacity: 0; /* 처음에 투명 */
+  /* 트랜지션 - bottom엔 적용되면 안되므로 별도지정함 */
+  transition: background-color 0.3s, opacity 0.3s;
+}
+.tbtn.on {
+  opacity: 1;
+  bottom: 0;
+}
+.tbtn:hover {
+  background-color: red;
 }
 
 /* 개별배경이미지 */

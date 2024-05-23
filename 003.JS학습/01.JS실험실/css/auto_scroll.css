@@ -12,7 +12,7 @@ h4 {
   padding: 0;
 }
 
-/* a요소 위치 이동시 부드러운 스크롤 애니 설정 */
+/* a요소 위치 이동시 부드러운 스크롤 애니설정 */
 html {
   scroll-behavior: smooth;
 }

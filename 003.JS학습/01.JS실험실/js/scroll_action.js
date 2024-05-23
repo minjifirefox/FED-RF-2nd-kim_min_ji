@@ -13,7 +13,7 @@ const myFn = {
 
   // 이벤트셋팅함수
   addEvt: (ele, evt, fn) => ele.addEventListener(evt, fn),
-  //바운딩함수
+  // 바운딩함수
   getBCR: (ele) => ele.getBoundingClientRect().top,
   // 옵셋탑값 반환함수
   getOT: (ele) => ele.offsetTop,
@@ -48,75 +48,83 @@ const myFn = {
     ((메서드명 조어 분석))
     getBoundingClientRect()
     get 가져와라
-    Bounding 경계선 ( -> 바운딩박스 - 겅계선을 가지는 직사각형 박스)
+    Bounding 경계선 (->바운딩박스 - 경계선을 가지는 직사각형박스)
     Client 보이는 화면
     Rect 사각형
-    ->>> BoundingClientRect -> 보이는 화면 사각형 경계선으로부터의 거리를 리턴해주는 메서드
-    -> 상단으로부터의 거리는 top 속성
-    -> 왼쪽으로부터의 거리는 left 속성
-    공통적으로 경계선 아래쪽은 양수, 위쪽은 음수
 
-****************************************************/
+    ->>> BouningClientRect 
+    -> 보이는 화면 사각형 경계선으로 부터의 거리를
+     리턴해주는 메서드
+     -> 상단으로 부터의 거리는 top속성
+     -> 왼쪽으로 부터의 거리는 left속성
+     공통적으로 경계선 아래쪽은 양수, 윗쪽은 음수
 
-// 1. 대상선정 //////////////////////////////////
+  ****************************************************/
+
+// 1. 대상선정 ///////////////
 // 스크롤 등장대상 : .hide-el (별도의 클래스를 줌!)
 const scAct = myFn.qsa(".hide-el");
 // console.log('대상:',scAct);
 
-// 2. 이벤트 설정 및 함수 호출하기
-// 2-1. 글자 등장 함수 호출하기
+// 2. 이벤트 설정 및 함수 호출하기 ////////////
+// 2-1. 글자등장함수 호출하기
 showLetters();
-// 2-2. 스크롤 등장 액션 이벤트 설정하기
+// 2-2. 스크롤 등장액션 이벤트 설정하기
 myFn.addEvt(window, "scroll", showIt);
 
-// 3. 함수 만들기 ///////////////////////////////
-// 3-1. 스크롤 등장 액션 함수
+// 3. 함수 만들기 ///////////////
+// 3-1. 스크롤 등장액션 함수
 function showIt() {
-  // 클래스 on 넣기 함수 호출하기
+  // 클래스 on넣기 함수 호출하기
 
   // for of 제어문 처리방법
   // for (let x of scAct) addOn(x);
 
-  // forEach 메서드 처리방법
+  // forEach메서드 처리방법
   scAct.forEach(ele=>addOn(ele));
 
-  let pos = myFn.getBCR(scAct[0]);
-  // 함수 호출 확인
-  //console.log("첫번째 대상 위치 : ", pos);
+  // let pos = myFn.getBCR(scAct[0]);
+  // let pos2 = myFn.getBCR(scAct[1]);
+  // let pos3 = myFn.getBCR(scAct[2]);
+  // 함수호출확인
+  // console.log('첫번째대상위치:',pos);
 
-  if (pos < 500) scAct[0].classList.add("on");
-} ////////// showIt 함수 ///////////////////////
+  // if(pos<500) scAct[0].classList.add('on');
+  // if(pos2<500) scAct[1].classList.add('on');
+  // if(pos3<500) scAct[2].classList.add('on');
+} /////////// showIt 함수 /////////////
 
-// 스크롤 등장 기준 설정 : 화면의 2/3
+// 스크롤 등장 기준설정 : 화면의 2/3
 const CRITERIA = (window.innerHeight / 3) * 2;
 // console.log("기준값:", CRITERIA);
 
-// [클래스 on 넣기 함수]
+//// [ 클래스 on 넣기 함수 ] ///////////
 function addOn(ele) {
-  // ele- 대상요소
+  // ele - 대상요소
   // 바운딩값 구하기
   let bcrVal = myFn.getBCR(ele);
+  // console.log(bcrVal);
 
-  // 기존값보다 작을 때 등장
+  // 기준값보다 작을때 등장
   if (bcrVal < CRITERIA) ele.classList.add("on");
-  // 기존값보다 크면 원상복귀(숨김-on빼기)
+  // 기준값보다 크면 원상복귀(숨김-on빼기)
   else ele.classList.remove("on");
-} /////// addOn ////////////////////////
+} ///////////// addOn 함수 //////////////
 
-// [글자 등장 세팅하기] /////////////////////////
-// 글자 등장 함수 /////
+// [ 글자등장 셋팅하기 ] /////////////////
+// 글자등장함수 //////
 function showLetters() {
   // 1. 대상선정 : .stage
   const stage = myFn.qs(".stage");
-  // console.log("대상:", stage);
+  //   console.log("대상:", stage);
 
   // 2. 글자 데이터 변수 할당
   const myText = "신카이 마코토";
 
-  // 3. 데이터 글자 한 글자씩 태그로 싸기
+  // 4. 데이터 글자 한 글자씩 태그로 싸기
   // for of 사용!
 
-  // html 태그 변수
+  // html태그 변수
   let hcode = "";
   // 지연시간 계산을 위한 순번변수
   let seqNum = 0;
@@ -128,28 +136,28 @@ function showLetters() {
       hcode += "&nbsp;&nbsp;";
     } /// if ///
     else {
-      // 글자인 경우 span 태그 랩핑 처리
+      // 글자일 경우 span태그 랩핑처리
       hcode += `
-        <span
-        style="transition-delay: ${seqNum * 0.1}s"
-        >
-        ${x}</span>`;
+      <span
+      style="transition-delay: ${seqNum * 0.08}s"
+      >
+      ${x}</span>`;
     } /// else ///
 
-    // 중요!!! 지연시간 곱해질 순번 증가 하기
+    // 중요!!! 지연시간에 곱해질 순번증가하기!
     seqNum++;
-  } /////// for of /////////
+  } //////// for of /////////////
 
-  // 4. 스테이지에 코드 출력하기
+  // 5. 스테이지에 코드 출력하기 /////
   stage.innerHTML = hcode;
 
-  // 5. 일정시간 뒤 등장 클래스 .on 넣기
+  // 6. 일정 시간 뒤 등장클래스 .on넣기
   setTimeout(() => {
     stage.classList.add("on");
   }, 2000);
 
-  ////////////////////// 글자 스크롤 이벤트 세팅하기 /////////////////////////////
-  // 이벤트 대상 : window
+  //////// 글자 스크롤 이벤트 셋팅하기 ///////
+  // 이벤트 대상: window
   myFn.addEvt(window, "scroll", moveTit);
 
   // 기준이 되는 포스터 박스 위치 구하기
@@ -157,26 +165,29 @@ function showLetters() {
 
   scAct.forEach((ele, idx) => {
     posTop[idx] = myFn.getOT(ele);
-  }); //// forEach ///////////
+  }); //// forEach //////
 
-  // -> 특정요소의 offsetTop값은 최상위 라인으로부터 떨어진 위치를 의미함!
-  // 이것은 스크롤바 이동위치가 해당 요소가 화면 맨 위에 걸린 상태와 같음!
-  // ->>> 그러므로 화면 중간에 위치할 때의 값은 화면 높이 값의 절반을 빼주면 된다!
+  // -> 특정요소의 offsetTop값은 최상위 라인으로부터
+  // 떨어진 위치를 의미함!
+  // 이것은 스크롤바 이동위치가 해당요소가
+  // 화면 맨위에 걸린 상태와 같음!
+  // ->>> 그러므로 화면 중간에 위치할때의 값은
+  // 화면높이값의 절반을 빼주면 된다!
   // posTop[순번] - window.innerHeight/2
 
-  // 화면절반크기 변수(포스터 위치에서 뺄 값!)
-  const gap = window.innerHeight/2;
+  // 화면절반크기 변수(포스터 위치에서 뺄값!)
+  const gap = window.innerHeight / 2;
 
-  // console.log('포스터위치:',posTop,gap);
+  // console.log("포스터위치:", posTop, gap);
 
-  ////////// 글자 이동함수
+  /////// 글자 이동함수 ////////////////////
   function moveTit() {
     // 스크롤 위치값 구하기
     let scTop = window.scrollY;
     // 호출확인
-    // console.log("타이틀 이동!", scTop);
+    // console.log("타이틀 이동!!!", scTop);
 
-    // 1. 맨 위 원위치하기 : 첫번째 기준보다 작을 때
+    // 1. 맨위 원위치하기 : 첫번째 기준보다 작을때
     if (scTop < posTop[0] - gap) {
       stage.style.top = "0%";
       stage.style.left = "50%";
@@ -200,43 +211,50 @@ function showLetters() {
       stage.style.left = "25%";
       stage.style.transition = ".5s";
     }
-  } //////////// moveTit 함수 ////////////////
-} ///// showLetters ///////////////////////
+  } /////////// moveTit 함수 //////////////
+} /////////// showLetters 함수 ///////////
 
-///////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////떨어지는 여자 구현하기 ///////////////////////////////////////////////////////////////
-// 기본원리 : 스크롤 이동에 따른 화면높이값 범위 안에서 떨어지는 여자 이미지가 아래쪽으로 이동 애니함!
-// 비례식을 세운다!
-// 스크롤 한계 값 : 윈도우 높이 = 스크롤 이동 값 : 이미지 이동 값
-// 이미지 이동 값 = 윈도우 높이 * 스크롤 이동 값 / 스크롤 한계 값
-// 이미지 이동 값 = winH * scTop / scLimit
 
-// 0. 변수 값 세팅하기
-// (1) 스크롤 한계 값 : 전체 document 높이 - 화면 높이
-// 문서 전체 document 높이
+
+///////////////////////////////////////////
+/////// 떨어지는 여자 구현하기 //////////////
+///////////////////////////////////////////
+
+// 기본원리: 스크롤 이동에 따른 화면높이값 범위안에서
+// 떨어지는 여자 이미지가 아래쪽으로 이동애니함!
+// [비례식을 세운다!!]
+// 스크롤한계값 : 윈도우높이 = 스크롤이동값 : 이미지이동값
+// 이미지이동값 = 윈도우높이 * 스크롤이동값 / 스크롤한계값
+
+// 0. 변수값 셋팅하기
+// (1) 스크롤 한계값 : 전체document높이 - 화면높이
+// 전체document높이
 let docH = document.body.clientHeight;
-// 화면 높이
+// 화면높이
 let winH = window.innerHeight;
-// 스크롤 한계 값
-let scLimit = docH - winH;
-console.log('문서높이:',docH,'\n화면높이:',winH,'\n한계값:',scLimit);
+// 스크롤한계값
+let scLlimit = docH - winH;
+console.log(
+  '문서높이:', docH,
+'\n화면높이:',winH,
+'\n한계값:',scLlimit);
 
-// 1. 대상선정 : 떨어지는 여자 요소
+// 1. 대상선정: 떨어지는 여자요소
 const woman = myFn.qs('#woman');
 
 // 2. 스크롤 이벤트 설정하기 : window가 이벤트 대상임!
 myFn.addEvt(window,'scroll',moveWoman);
 
-// 3. 함수 만들기
+// 3. 함수 만들기 /////////
 function moveWoman(){
-  // 1. 스크롤 위치 값
+  // 1. 스크롤 위치값
   let scTop = window.scrollY;
-  // console.log('스크롤 위치 값:',scTop);
-
-  // 2. 떨녀 top 값
-  let wTop = winH * scTop / scLimit;
+  
+  // 2. 떨녀 top 값  
+  let wTop = winH * scTop / scLlimit;
   console.log('스위:',scTop,'\n여자:',wTop);
-  // 이미지 이동 값 = 윈도우 높이(winH) * 스크롤 이동 값(scTop) / 스크롤 한계 값(scLimit)
+  // 이미지이동값 = 
+  // 윈도우높이(winH) * 스크롤이동값(scTop) / 스크롤한계값(scLlimit)
 
   // 3. 떨녀에게 적용하기
   woman.style.top = wTop + 'px';
@@ -244,4 +262,7 @@ function moveWoman(){
   // 4. 맨위일때 윗쪽으로 숨기기
   if(scTop === 0) woman.style.top = '-20%';
 
-} /////// moveWoman 함수 /////////////////////////////////////
+
+
+
+} //////// moveWaman 함수 /////////////

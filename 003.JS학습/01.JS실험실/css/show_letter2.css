@@ -16,7 +16,7 @@ body {
     position: relative;
     margin: 0 auto;
     margin-bottom: 50vh;
-    
+
     /* 플렉스박스 */
     display: flex;
     flex-wrap: wrap;
@@ -34,7 +34,7 @@ body {
     /* 트랜스폼 적용위해 */
     display: block;
 }
-/* 글자 단위 앞쪽에 마진 설정 */
+/* 글자 단위 앞쪽에 마진설정 */
 .stage-letters span+span {
     margin-left: 15px;
 }

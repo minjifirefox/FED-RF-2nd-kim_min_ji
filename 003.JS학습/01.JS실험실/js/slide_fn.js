@@ -1,9 +1,10 @@
 // 슬라이드 배너 모듈 JS - slide_fn.js
 
+
 // DOM 모듈함수
 import mFn from "./my_function.js";
 
-// 배너 세팅을 위한 함수(노출용) ///////
+/// 배너 셋팅을 위한 함수(노출용) /////
 export default function setSlide(clsName){
     // 슬라이드 대상요소 : .banbx
     const banBox = mFn.qsa('.'+clsName);
@@ -17,7 +18,7 @@ export default function setSlide(clsName){
     
     }); /////// forEach ///////////
 
-} ////////////// setSlide 함수 /////////////////////
+} ///////////// setSlide 함수 //////////
 
 
 /***************************************************** 
