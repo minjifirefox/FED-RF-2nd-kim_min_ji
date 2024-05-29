@@ -19,7 +19,7 @@ import Member from "./components/Member";
 function Layout() {
   // 상태 관리 변수 설정 구역
   // [1] 메뉴 변경 상태 변수
-  const [menu, setMenu] = React.useState("fashion");
+  const [menu, setMenu] = React.useState("home");
 
   // 화면 렌더링 직전에 CSS 로딩 변경하기
   React.useLayoutEffect(() => {
