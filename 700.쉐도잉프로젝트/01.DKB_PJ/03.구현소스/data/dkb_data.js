@@ -19,6 +19,7 @@
     3.내용 : story
     4.방송일 : date
 *************************************/
+
 const previewData = [
   {
     idx: "1",
@@ -312,7 +313,7 @@ const liveData = [
   {
     idx: "8",
     title: "도깨비를마니마니",
-    imgName: ["live_photo1",2],
+    imgName: ["live_photo1",1],
     date: "2023-09-08",
   },
 ]; /////////// liveData 배열 /////////

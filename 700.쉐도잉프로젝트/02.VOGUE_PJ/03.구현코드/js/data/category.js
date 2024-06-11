@@ -1,4 +1,4 @@
-// 아이템 카테고리 데이터 - category.js /////
+// 아이템 카테고리 데이터 - category.js ///
 
 const catData = {
     "fashion": {
@@ -107,5 +107,5 @@ const catData = {
     }
 };
 
-// 내보내기
+// 내보내기 ////
 export default catData;

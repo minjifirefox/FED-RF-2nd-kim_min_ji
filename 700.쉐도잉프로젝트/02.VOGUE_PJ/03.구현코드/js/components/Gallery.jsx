@@ -4,46 +4,46 @@ export default function Gallery() {
 
   // 스와이퍼 인스턴스 변수
   let swiper;
-  // 스와이퍼 인스턴스 생성함수 //////////
+  // 스와이퍼 인스턴스 생성함수 ////
   const setSwiper = () => {
     swiper = new Swiper(".mySwiper", {
-      // 한 화면당 슬라이드 수(아래 breakpoint로 설정함)
+      // 한 화면당 슬라이드수(아래breakpoint로 설정함)
       slidesPerView: 1,
-      //   슬라이드 사이 간격
+      // 슬라이드 사이간격
       spaceBetween: 10,
-      //   무한 넘기기
+      // 무한넘기기
       loop: true,
-      //   자동 넘기기
+      // 자동넘기기
       autoplay: {
-        // 사이 간격
+        // 사이간격
         delay: 2500,
         // 상호작용 죽이기 속성 없앰!
         disableOnInteraction: false,
       },
-      //   하단 블릿 표시
+      // 하단 블릿표시
       pagination: {
         el: ".swiper-pagination",
         clickable: true,
       },
-      //   양쪽 이동 버튼
+      // 양쪽이동버튼
       navigation: {
         nextEl: ".swiper-button-next",
         prevEl: ".swiper-button-prev",
       },
 
-      /* 가로 사이즈별 스와이퍼 설정 변경 */
+      /* 가로 사이즈별 스와이퍼 설정변경 */
       breakpoints: {
-        //   가로 200px 이상
+        // 가로 200px이상
         200: {
           slidesPerView: 1,
           spaceBetween: 0,
         },
-        //   가로 700px 이상
+        // 가로 700px이상
         700: {
           slidesPerView: 2,
           spaceBetween: 10,
         },
-        //   가로 1000px 이상
+        // 가로 1000px이상
         1000: {
           slidesPerView: 3,
           spaceBetween: 20,
@@ -51,27 +51,28 @@ export default function Gallery() {
       },
     });
   };
-  // 화면 렌더링 전 실행구역
+
+  // 화면 랜더링전 실행구역 /////
   React.useLayoutEffect(() => {
     // 스와이퍼 생성 함수 호출
-    setSwiper();
+    setSwiper();  
 
     // 스와이퍼 API 테스트
-    // 갤러리 제목(.stit) 클릭시 다음 슬라이드 넘기기
+    // 갤러리 제목(.stit)클릭시 다음슬라이드 넘기기
     $(".stit").click(()=>{
-      console.log("ㅎㅎㅎㅎㅎㅎ");
+      console.log("ㅎㅎㅎ");
       // 변수에 담은 스와이퍼 인스턴스의
       // 구체적인 API 메서드를 호출하여
       // 기능을 수행한다!
-      // swiper.slideNext();
-      swiper.slidePrev();
+      swiper.slideNext();
+      // swiper.slidePrev();
       // 스와이퍼 API는 여기서 참조
       // https://swiperjs.com/swiper-api
     });
+    
+  }); ///// useLayoutEffect //////////
 
-  }); //////////////// useLayoutEffect 구역 /////////////////////////////////
-
-  // 코드 리턴구역
+  // 코드 리턴구역 /////
   return (
     <div id="main-area">
       <main className="main-area ibx">
@@ -83,8 +84,8 @@ export default function Gallery() {
         {/* <!-- 2-2. 갤러리 페이지 컨텐츠 박스 --> */}
         <section className="scont">
           {/* <!-- Swiper --> */}
-          <div class="swiper mySwiper">
-            <div class="swiper-wrapper">
+          <div className="swiper mySwiper">
+            <div className="swiper-wrapper">
               <div className="swiper-slide">
                 <img src="images/people/cont2-1a.jpg" alt="보그갤러리" />
               </div>
@@ -113,6 +114,7 @@ export default function Gallery() {
                 <img src="images/beauty/cont1-1b.jpg" alt="보그갤러리" />
               </div>
             </div>
+
             <div class="swiper-button-next"></div>
             <div class="swiper-button-prev"></div>
             <div className="swiper-pagination"></div>
@@ -121,4 +123,4 @@ export default function Gallery() {
       </main>
     </div>
   );
-} ////////////////// Gallery 컴포넌트 ///////////////////////////
+} /////////// Gallery 컴포넌트 //////////////

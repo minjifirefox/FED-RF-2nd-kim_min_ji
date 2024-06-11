@@ -20,7 +20,7 @@ export default function TopArea({ changeMenu }) {
 
     console.log(v);
 
-    // 전달값 변경하기 : 소문자,특수문자 변경
+    // 전달값 변경하기 : 소문자 변경
     v = v.toLowerCase();
 
     // 부모 메뉴변경 상태메서드로 메뉴변경
@@ -49,13 +49,16 @@ export default function TopArea({ changeMenu }) {
               <span className="ir">유튜브</span>
             </a>
 
-            <a href="#" className="fi fi-laptop" title="로그인" onClick={()=>chgMenuFn("login")}>
+            <a href="#" className="fi fi-laptop" title="로그인"
+            onClick={()=>chgMenuFn("login")}>
               <span className="ir">로그인</span>
             </a>
-            <a href="#" className="fi fi-user-secret" title="회원가입" onClick={()=>chgMenuFn("member")}>
+            <a href="#" className="fi fi-user-secret" title="회원가입"
+            onClick={()=>chgMenuFn("member")}>
               <span className="ir">회원가입</span>
             </a>
-            <a href="#" className="fi fi-camera" title="갤러리" onClick={()=>chgMenuFn("gallery")}>
+            <a href="#" className="fi fi-camera" title="갤러리" 
+            onClick={()=>chgMenuFn("gallery")}>
               <span className="ir">갤러리</span>
             </a>
             <a href="#" className="fi cas" title="카카오스토리">

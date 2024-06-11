@@ -18,17 +18,17 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/fontisto@v3.0.4/css/fontisto/fontisto.min.css"
     />
-    <!-- 메인 CSS : #main-css -->
-    <link id="main-css" rel="stylesheet" href="./css/main.css" />
-
-    <!-- 스와이퍼 CSS -->
+    <!-- 스와이퍼 CSS  -->
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
     />
+    <!-- 메인 CSS : #main-css -->
+    <link id="main-css" rel="stylesheet" href="./css/main.css" />
+
     <!-- 스와이퍼 JS -->
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <div id="main-area">
+    <script 
+    src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
     <!-- 제이쿼리 라이브러리 -->
     <script src="./js/jquery-3.7.1.min.js"></script>
@@ -56,9 +56,30 @@
       type="text/babel"
     ></script>
 
-    <!-- 유효성 검사 모듈 JS -->
+    <!-- 유효성검사 JS : 회원가입용 -->
     <script
       src="./js/validation.js"
+      data-plugins="transform-es2015-modules-umd"
+      type="text/babel"
+    ></script>
+
+    <!-- 유효성검사 JS : 로그인용 -->
+    <script
+      src="./js/valid_login.js"
+      data-plugins="transform-es2015-modules-umd"
+      type="text/babel"
+    ></script>
+
+    <!-- 부드러운 스크롤 JS : 사용하는 컴포넌트보다 위! -->
+    <script
+      src="./js/smoothScroll24.js"
+      data-plugins="transform-es2015-modules-umd"
+      type="text/babel"
+    ></script>
+
+    <!-- 스크롤 등장 함수 JS : 사용하는 컴포넌트보다 위! -->
+    <script
+      src="./js/scroll_show.js"
       data-plugins="transform-es2015-modules-umd"
       type="text/babel"
     ></script>
@@ -97,7 +118,7 @@
       data-plugins="transform-es2015-modules-umd"
       type="text/babel"
     ></script>
-    
+
     <!-- 아이템영역 모듈 JS -->
     <script
       src="./js/components/ItemsArea.jsx"

@@ -202,9 +202,9 @@ font-family: 'Roboto Condensed', sans-serif;
   position: relative;
   z-index: 1;
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
-  /***************************************************************** 
-    상단영역 겉박스
-  *****************************************************************/
+  /****************************************** 
+    상단영역 겉박스에 클래스 on줄경우 슬림메뉴
+  ******************************************/
 }
 #top-area.on {
   position: fixed;
@@ -215,7 +215,7 @@ font-family: 'Roboto Condensed', sans-serif;
   z-index: 999;
   /* 1. 상단영역 최소높이 해제 */
   /* 2. 상단메뉴 없애기 */
-  /* 3. 로고 박스 */
+  /* 4. 로고 박스 */
   /* 5. GNB박스 */
 }
 #top-area.on .top-area {
@@ -487,7 +487,7 @@ font-family: 'Roboto Condensed', sans-serif;
 /* 2-2. 서브 컨텐츠 박스 */
 .scont {
   /* 처음에 회원가입 박스안보임 
-  -> 대신 동의박스가 보임 */
+    -> 대신 동의박스가 보임 */
   max-width: 700px;
   min-height: 275px;
   margin: 0 auto;
