@@ -27,12 +27,12 @@ function Searching({ kword }) {
   // [2] 정렬기준 상태관리변수
   const [sort, setSort] = useState("asc");
   // 값: 오름차순 - asc / 내림차순 - desc
+  // [3] 체크박스 체크 여부 상태 관리변수
   const [chk, setChk] = useState([true, true, true]);
-  console.log("체크값:",chk);
 
   // 검색어가 있는 데이터 필터하기
   // filter()는 검색결과가 항상 배열로 나옴!
-  let newList = catListData.filter((v) => {
+  const newList = catListData.filter((v) => {
     // 속성중 캐릭터 이름 중 검색(v.cname)
     // 검색어는 모두 영어일 경우 소문자처리함
     let newVal = v.cname.toLocaleLowerCase();
@@ -40,7 +40,25 @@ function Searching({ kword }) {
     // ((중요!!!)) 상태변수인 kw로 대체한다!!!
     let key = kw.toLocaleLowerCase();
     // 문자열이 있는 값만 배열로 재수집!
-    if (newVal.indexOf(key) !== -1) return true;
+    if (
+      // 1과 2의 조건이 모두 true여야 함!
+      // 1. 검색어 조건 (cname 속성)
+      (newVal.indexOf(key) !== -1) &&
+      // 2. 체크박스항목 조건 (alignment 속성)
+      // 주의 : 조건문 내의 삼항연산자는 반드시 소괄호로
+      // 묶어서 논리연산자(&&,||,!)와의 충돌을 막아줘야 함!
+      // OR문의 결과가 false이려면 모두 false이어야 함!
+      // 체크박스 모두 불체크시 false로 처리!
+      (
+        chk[0]?v.alignment=="hero":true ||
+        chk[1]?v.alignment=="comp":true ||
+        chk[2]?v.alignment=="villain":true 
+      )
+      // true && (true || false || false)
+      // -> &&문은 모두 true여야 true
+      // -> ||문은 하나만 true면 true
+      
+    ) return true;
     // 문자열.indexOf(문자) 문자열위치번호 리턴함
     // 그런데 결과가 없으면 -1을 리턴함!
     // 그래서 -1이 아닐경우 true를 리턴하면
@@ -48,14 +66,6 @@ function Searching({ kword }) {
   }); //////////////// filter ///////////////////
 
   // [ 결과내 재검색 : 데이터 항목중 alignment값으로 검색함! ]
-  newList = newList.filter((v) => {
-    if(
-      chk[0]?v.alignment == "hero":false ||
-      chk[1]?v.alignment == "comp":false ||
-      chk[2]?v.alignment == "villain":false
-    
-    ) return true;
-  }); //////////////// filter ///////////////////
 
   // [ 정렬기능 추가하기 ] /////////
   // (1) 오름차순일 경우
@@ -107,10 +117,12 @@ function Searching({ kword }) {
               // -> setKw(검색어)
               onKeyUp={(e) => {
                 if (e.key == "Enter") {
-                  // 검색어 상태값 변경
+                  // 1. 검색어 상태값 변경
                   setKw(e.target.value);
-                  // 처음 검색시 정렬은 기본정렬 오름차순(asc)
+                  // 2. 처음 검색시 정렬은 기본정렬 오름차순(asc)
                   setSort("asc");
+                  // 3. 처음 검색시 모두 체크
+                  setChk([true, true, true]);
                   // 정렬선택박스 선택값변경(DOM에서 보이기변경)
                   document.querySelector("#sel").value = "asc";
                 } /// if ///
@@ -135,13 +147,19 @@ function Searching({ kword }) {
                       type="checkbox"
                       id="hero"
                       className="chkhdn"
+                      // 체크박스 체크 속성 값을 훅연결!
                       checked={chk[0]}
                       // 체크변경시 change이벤트발생
                       onChange={(e) => {
                         // 체크박스의 checked속성은
                         // 체크시 true, 불체크시 false리턴
                         console.log(e.target.checked);
-                        setChk([e.target.checked,true,true]);
+                        // 훅 값 업데이트
+                        setChk([
+                          e.target.checked,
+                          chk[1],
+                          chk[2]
+                        ]);
                       }}
                     />
                     {/* 디자인노출 라벨 */}
@@ -150,16 +168,24 @@ function Searching({ kword }) {
                   <li>
                     It's Complicated
                     {/* 숨긴 체크박스 */}
-                    <input type="checkbox" id="comp" className="chkhdn" 
-                    
-                    checked={chk[1]}
-                    // 체크변경시 change이벤트발생
-                    onChange={(e) => {
-                      // 체크박스의 checked속성은
-                      // 체크시 true, 불체크시 false리턴
-                      console.log(e.target.checked);
-                      setChk([true,e.target.checked,true]);
-                    }}
+                    <input
+                      type="checkbox"
+                      id="comp"
+                      className="chkhdn"
+                      // 체크박스 체크 속성 값을 훅연결!
+                      checked={chk[1]}
+                      // 체크변경시 change이벤트발생
+                      onChange={(e) => {
+                        // 체크박스의 checked속성은
+                        // 체크시 true, 불체크시 false리턴
+                        console.log(e.target.checked);
+                        // 훅 값 업데이트
+                        setChk([
+                          chk[0],
+                          e.target.checked,
+                          chk[2]
+                        ]);
+                      }}
                     />
                     {/* 디자인노출 라벨 */}
                     <label htmlFor="comp" className="chklb"></label>
@@ -167,16 +193,24 @@ function Searching({ kword }) {
                   <li>
                     Villains
                     {/* 숨긴 체크박스 */}
-                    <input type="checkbox" id="villain" className="chkhdn" 
-                    
-                    checked={chk[2]}
-                    // 체크변경시 change이벤트발생
-                    onChange={(e) => {
-                      // 체크박스의 checked속성은
-                      // 체크시 true, 불체크시 false리턴
-                      console.log(e.target.checked);
-                      setChk([true,true,e.target.checked]);
-                    }}
+                    <input
+                      type="checkbox"
+                      id="villain"
+                      className="chkhdn"
+                      // 체크박스 체크 속성 값을 훅연결!
+                      checked={chk[2]}
+                      // 체크변경시 change이벤트발생
+                      onChange={(e) => {
+                        // 체크박스의 checked속성은
+                        // 체크시 true, 불체크시 false리턴
+                        console.log(e.target.checked);
+                        // 훅 값 업데이트
+                        setChk([
+                          chk[0],
+                          chk[1],
+                          e.target.checked,
+                        ]);
+                      }}
                     />
                     {/* 디자인노출 라벨 */}
                     <label htmlFor="villain" className="chklb"></label>
