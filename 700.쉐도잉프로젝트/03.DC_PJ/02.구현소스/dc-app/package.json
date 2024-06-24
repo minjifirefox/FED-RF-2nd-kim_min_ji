@@ -1,5 +1,5 @@
 {
-  "homepage": "https://minjifirefox.github.io/FED-RF-2nd-kim_min_ji/700.%EC%89%90%EB%8F%84%EC%9E%89%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/03.DC_PJ/02.%EA%B5%AC%ED%98%84%EC%86%8C%EC%8A%A4/dc-app/build/",
+  "homepage": "https://minjifirefox.github.io/FED-RF-2nd-kim_min_ji/700.%EC%89%90%EB%8F%84%EC%9E%89%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/03.DC_PJ/02.%EA%B5%AC%ED%98%84%EC%86%8C%EC%8A%A4/dc-app/build",
   "name": "dc-app",
   "version": "0.1.0",
   "private": true,
@@ -8,7 +8,7 @@
     "@fortawesome/free-brands-svg-icons": "^6.5.2",
     "@fortawesome/free-regular-svg-icons": "^6.5.2",
     "@fortawesome/free-solid-svg-icons": "^6.5.2",
-    "@fortawesome/react-fontawesome": "^0.2.2",
+    "@fortawesome/react-fontawesome": "^0.2.2",            
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
