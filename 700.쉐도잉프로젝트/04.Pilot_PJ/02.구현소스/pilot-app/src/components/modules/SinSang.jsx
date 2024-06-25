@@ -8,6 +8,7 @@ import { showInfo, removeInfo, flowList } from "../../js/func/sinsang_fn";
 
 // 신상 데이터 불러오기 /////
 import { sinsangData } from "../../js/data/sinsang";
+import { useLayoutEffect } from "react";
 
 function SinSang({ cat, chgItemFn }) {
   // cat - 카테고리 분류명 (men/women/style)
