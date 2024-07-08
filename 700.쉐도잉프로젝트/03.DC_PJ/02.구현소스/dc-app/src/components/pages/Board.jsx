@@ -18,15 +18,33 @@ import $ from "jquery";
 import "../../css/board.scss";
 import "../../css/board_file.scss";
 
+// 로컬스토리지 확인 JS
+import { initBoardData } from "../func/board_fn";
+
 export default function Board() {
+  // 로컬스토리지 게시판 데이터 정보 확인! //
+  initBoardData();
+
+  // 로컬스 데이터 변수 할당하기!
+  const baseData = JSON.parse(localStorage.getItem("board-data"));
+
   // [ 상태 관리 변수 ]
   // [1] 페이지 번호
   const [pageNum, setPageNum] = useState(1);
+  // [2] 기능모드
+  const [mode, setMode] = useState("L");
+  // (1) 리스트 모드(L) : List Mode
+  // (2) 글보기 모드(R) : Read Mode
+  // (3) 글쓰기 모드(W) : Write Mode
+  // (4) 수정 모드(M) : Modify Mode (삭제포함)
 
   // [참조 변수] ///
   // [1] 전체 개수 - 매번 계산하지 않도록 참조 변수로!
   const totalCount = useRef(baseData.length);
   console.log("전체개수:", totalCount);
+  // [2] 선택 데이터 저장
+  const selRecord = useRef(null);
+  // -> 특정 리스트 글 제목 클릭시 데이터 저장함!
 
   // 페이지 당 개수
   const unitSize = 8;
@@ -74,7 +92,16 @@ export default function Board() {
         {/* 시작 번호를 더하여 페이지별 순번을 변경 */}
         <td>{i + 1 + sNum}</td>
         <td>
-          <a href="#" data-idx="51">
+          <a
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              // 읽기 모드로 변경!
+              setMode("R");
+              // 해당 데이터 저장하기
+              selRecord.current = v;
+            }}
+          >
             {v.cont}
           </a>
         </td>
@@ -144,10 +171,63 @@ export default function Board() {
     return pgCode;
   }; /////////////////// pagingList 함수 /////////////////////////
 
+  // 버튼 클릭시 변경 함수 ///////////////
+  const clickButton = (e) => {
+    // 버튼 글자 읽기
+    let btnText = e.target.innerText;
+    console.log(btnText);
+    // 버튼별 분기
+    switch (btnText) {
+      // 글쓰기 모드로 변경
+      case "Write":
+        console.log("글 써라!");
+        break;
+      // 리스트 모드로 변경
+      case "List":
+        setMode("L");
+        break;
+    }
+  }; /////////////////// clickButton //////////////////
+
   // 코드 리턴구역
   return (
     <main className="cont">
       <h1 className="tit">OPINION</h1>
+      {
+        // 1. 리스트 모드일 경우 리스트 출력하기
+        mode == "L" && <ListMode bindList={bindList} pagingList={pagingList} />
+      }
+      {
+        // 2. 읽기 모드일 경우 상세보기 출력하기
+        mode == "R" && <ReadMode selRecord={selRecord} />
+      }
+      <br />
+      <table className="dtbl btngrp">
+        <tbody>
+          <tr>
+            <td>
+              {
+                // 1. 글쓰기 버튼은 로그인 상태이고 "L"이면 출력
+                mode == "L" && <button onClick={clickButton}>Write</button>
+              }
+              {
+                // 2. 읽기 상태 "R"일 경우
+                mode == "R" && <button onClick={clickButton}>List</button>
+              }
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </main>
+  );
+} //////////// Board ////////////////////////
+
+/************************************************************************ 
+  리스트 모드 서브 컴포넌트
+************************************************************************/
+const ListMode = ({ bindList, pagingList }) => {
+  return (
+    <>
       <div className="selbx">
         <select name="cta" id="cta" className="cta">
           <option value="tit">Title</option>
@@ -180,18 +260,68 @@ export default function Board() {
           </tr>
         </tfoot>
       </table>
-      <br />
-      <table className="dtbl btngrp">
+    </>
+  );
+};
+
+/*********************************************************************** 
+  읽기 모드 서브 컴포넌트
+***********************************************************************/
+const ReadMode = ({ selRecord }) => {
+  // 읽기 모드가 호출되었다는 것은
+  // 리스트의 제목이 클릭되었다는 것을 의미!
+  // 따라서 현재 레코드 값도 저장되었다는 의미!
+  console.log("전달된 참조변수:", selRecord.current);
+  // 전달된 데이터 객체를 변수에 할당
+  const data = selRecord.current;
+
+  return (
+    <>
+      <table className="dtblview readone">
+        <caption>OPINION : Read</caption>
         <tbody>
           <tr>
+            <td>Name</td>
             <td>
-              <button>
-                <a href="#">Write</a>
-              </button>
+              <input
+                type="text"
+                className="name"
+                size="20"
+                readOnly
+                value={data.unm}
+              />
             </td>
+          </tr>
+          <tr>
+            <td>Title</td>
+            <td>
+              <input
+                type="text"
+                className="subject"
+                size="60"
+                readOnly
+                value={data.tit}
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>Content</td>
+            <td>
+              <textarea
+                className="content"
+                cols="60"
+                rows="10"
+                readOnly
+                value={data.cont}
+              ></textarea>
+            </td>
+          </tr>
+          <tr>
+            <td>Attachment</td>
+            <td></td>
           </tr>
         </tbody>
       </table>
-    </main>
+    </>
   );
-} //////////// Board ////////////////////////
+}; /////////////////////// ReadMode ///////////////////////////////////
