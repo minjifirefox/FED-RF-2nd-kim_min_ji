@@ -1,10 +1,10 @@
-// DC PJ 캐릭터 검색 결과 리스트 컴포넌트
+// DC PJ 캐릭터 검색결과 리스트 컴포넌트
 import React from "react";
 
-// CSS 불러오기
+// CSS불러오기
 import "../../css/searching_cat.scss";
 
-// 라우터 돔 Link
+// 라우터돔 Link
 import { Link } from "react-router-dom";
 
 function SearchingCat({ dt }) {
@@ -12,15 +12,15 @@ function SearchingCat({ dt }) {
 
   // total - 검색된 배열데이터 개수
   const total = dt.length;
-  console.log("데이터 수 :",total);
+  console.log("데이터수:",total);
 
   return (
     <>
       {
-        // 데이터 개수가 0이 아닐 때 출력
+        // 데이터 개수가 0이 아닐때 출력
         total > 0 && (
           <ul className="clist">
-            {dt.map((v,i) => (
+            {dt.map((v, i) => (
               <li key={i}>
                 <Link
                   to="/detail"
@@ -31,7 +31,9 @@ function SearchingCat({ dt }) {
                     facts: v.facts, // 캐릭터상세
                   }}
                 >
-                  <img src={process.env.PUBLIC_URL+v.tmsrc} alt={v.cname} />
+                  <img 
+                  src={process.env.PUBLIC_URL+v.tmsrc} 
+                  alt={v.cname} />
                   <h3>{v.cname}</h3>
                 </Link>
               </li>

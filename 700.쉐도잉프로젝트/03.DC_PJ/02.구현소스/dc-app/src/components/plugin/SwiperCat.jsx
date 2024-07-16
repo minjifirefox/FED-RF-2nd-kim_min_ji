@@ -1,4 +1,4 @@
-// 캐릭터 모듈 스와이퍼 플러그인 컴포넌트
+// 캐릭터모듈 스와이퍼 플러그인 컴포넌트
 
 import React, { useEffect } from "react";
 // Import Swiper React components
@@ -26,7 +26,7 @@ export function SwiperCat() {
   // 선택데이터 변수할당
   const selData = catListData;
 
-  // 코드 리턴 구역 ////////////////////////////////
+  // 코드 리턴구역 /////////////
   return (
     <>
       <Swiper
@@ -54,24 +54,26 @@ export function SwiperCat() {
       >
         {selData.map(
           (v, i) =>
-            /* idx 고유번호가 7번 이하만 출력
-          idx가 문자형숫자이므로 비교를 위해
-          숫자형 변환해줌! Number(변수) */
+            /* idx 고유번호가 7번이하만 출력
+          idx가 문자형숫자 이므로 비교를 위해
+          숫자형변환해줌! Number(변수) */
             Number(v.idx) <= 7 && (
               <SwiperSlide key={i}>
-                <Link
-                  to="/detail"
-                  /* state로 3가지 값을 넘겨준다! */
-                  state={{
-                    cname: v.cname, // 캐릭터 이름
-                    cdesc: v.cdesc, // 캐릭터 설명
-                    facts: v.facts, // 캐릭터 상세
-                  }}
+                <Link 
+                to="/detail"
+                /* state로 3가지 값을 넘겨준다! */
+                state={{
+                  cname: v.cname, // 캐릭터이름
+                  cdesc: v.cdesc, // 캐릭터설명
+                  facts: v.facts // 캐릭터상세
+                }}
                 >
                   <section className="sw-inbox2">
                     {/* 캐릭터이미지영역 */}
                     <div className="cat-img2">
-                      <img src={process.env.PUBLIC_URL+v.tmsrc} alt={v.cname} />
+                      <img 
+                      src={process.env.PUBLIC_URL+v.tmsrc} 
+                      alt={v.cname} />
                     </div>
                     {/* 캐릭터타이틀영역 */}
                     <div className="cat-tit2">

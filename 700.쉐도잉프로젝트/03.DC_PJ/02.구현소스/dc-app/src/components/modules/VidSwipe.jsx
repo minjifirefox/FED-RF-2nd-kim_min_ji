@@ -13,13 +13,15 @@ section.vidswbox >
 import React from "react";
 // 데이터 불러오기
 import { catTit } from "../data/vid_swipe";
+
+// 스와이퍼 컴포넌트 불러오기
 import { SwiperVid } from "../plugin/SwiperVid";
 
 // CSS불러오기
 import "../../css/vid_swipe.scss";
 
-function VidSwipe({ catName }) {
-  // catName - 카테고리명
+function VidSwipe({catName}) {
+    // catName - 카테고리명
   return (
     <>
       <section className="vid-swbox">

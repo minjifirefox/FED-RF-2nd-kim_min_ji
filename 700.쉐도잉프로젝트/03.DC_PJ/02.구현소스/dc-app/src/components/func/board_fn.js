@@ -1,4 +1,4 @@
-// 회원가입을 위한 로컬스토리지 생성 JS
+// 게시판을 위한 로컬스토리지 생성 JS
 /************************************ 
     [ 게시판 기본 데이터 구조 ]
     1. 기본키(유일키) : idx
@@ -12,13 +12,13 @@
 ************************************/
 
 // 기초 데이터 제이슨 불러오기
-import orgData from "../data/board.json"
+import orgData from "../data/board.json";
 
 // [ 로컬쓰 클리어 ] /////////
 const clearBoardData = () => {
     localStorage.removeItem("board-data");
     console.log("게시판 로컬쓰 클리어!");
-  }; /////////// clearBoardData //////////////
+  }; /////////// clearData //////////////
   
   // [ 로컬쓰 초기체크셋팅! ] ////////////
   const initBoardData = () => {
@@ -28,7 +28,7 @@ const clearBoardData = () => {
         "board-data", JSON.stringify(orgData)
       );
     }
-  }; ///////////// initBoardData /////////////////
+  }; ///////////// initData /////////////////
   
   export { clearBoardData, initBoardData };
   
