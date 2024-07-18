@@ -98,8 +98,8 @@ export default function Board() {
     } ///// for //////
 
     console.log("일부데이터:", selData);
-console.log("여기:",selData.length);
-if(selData.length == 0) setPageNum(pageNum-1);
+    console.log("여기:", selData.length);
+    if (selData.length == 0) setPageNum(pageNum - 1);
 
     return selData.map((v, i) => (
       <tr key={i}>
@@ -241,11 +241,10 @@ if(selData.length == 0) setPageNum(pageNum-1);
       // 에러를 방지하기 위하여 전체 개수를 바로 업데이트한다!
       totalCount.current = baseData.length;
 
-
       // 4. 리스트로 돌아가기 -> 리랜더링 /////
       // -> 모드변경! "L"
       setMode("L");
-      // 삭제후 첫페이지로 이동!
+      // -> 삭제후 첫페이지로 이동!
       setPageNum(1);
     } ///////// if ///////////////
   }; //////// deleteFn ///////////////
@@ -319,6 +318,8 @@ if(selData.length == 0) setPageNum(pageNum-1);
       // 5. 리스트로 돌아가기 -> 리랜더링 /////
       // -> 모드변경! "L"
       setMode("L");
+      // -> 추가 후 첫페이지로 이동!
+      setPageNum(1);
     } /// if ///
 
     // 3. 수정모드 서브밋 (mode=="M")
@@ -375,7 +376,6 @@ if(selData.length == 0) setPageNum(pageNum-1);
     }
   }; ////////// submitFn //////////////
 
-
   //// 코드 리턴구역 //////////////
   return (
     <main className="cont">
@@ -386,7 +386,7 @@ if(selData.length == 0) setPageNum(pageNum-1);
       }
       {
         // 2. 읽기 모드일 경우 상세보기 출력하기
-        mode == "R" && <ReadMode selRecord={selRecord} />
+        mode == "R" && <ReadMode selRecord={selRecord} sts={sts} />
       }
       {
         // 3. 쓰기 모드일 경우 로그인 정보 보내기
@@ -507,7 +507,8 @@ const ListMode = ({ bindList, pagingList }) => {
 /****************************************** 
         읽기 모드 서브 컴포넌트
 ******************************************/
-const ReadMode = ({ selRecord }) => {
+const ReadMode = ({ selRecord, sts }) => {
+  // selRecord - 현재 글 정보 / sts - 로그인 사용자 정보
   // 읽기 모드가 호출되었다는 것은
   // 리스트의 제목이 클릭되었다는 것을 의미!
   // 따라서 현재 레코드 값도 저장되었다는 의미!
@@ -515,6 +516,74 @@ const ReadMode = ({ selRecord }) => {
   // 전달된 데이터 객체를 변수에 할당
   const data = selRecord.current;
 
+  // [ 조회수 증가하기 ]
+  // 규칙 1 : 자신의 글은 증가하지 않는다!
+  // 규칙 2 : 타인의 글은 증가한다!
+  // 규칙 3 : 로그인한 상태에서 한 번만 증가한다!
+
+  // ((조회된 글 저장 방법))
+  // -> 세션스토리지는 적합! 창을 닫으면 사라지니까!
+  // -> 쿠키는 삭제방법이 즉각적이지 못하므로 제외!
+  // -> 참조변수는 새로고침하면 초기화되므로 제외!
+  // 1. 없으면 세션스 만들기
+  if (!sessionStorage.getItem("bd-rec")) {
+    sessionStorage.setItem("bd-rec", "[]");
+  }
+
+  // 2. 세션스에 글 번호 저장하기
+
+  // (1) 세션스 파싱하여 변수할당
+  let rec = JSON.parse(sessionStorage.getItem("bd-rec"));
+
+  // (2) 기존 배열 값에 현재 글 번호 존재여부 검사하기
+  // 결과가 true이면 조회수를 증가하지 않는다!
+  let isRec = rec.includes(data.idx);
+  console.log("이미 있니?", isRec);
+
+  // (3) 로그인한 사용자의 글이면 true 처리
+  // sts가 true이면 즉, 로그인한 사용자이면 처리
+  if (sts) {
+    console.log(
+      "선택 글 아이디:",
+      data.uid,
+      "로그인 사용자 아이디:",
+      JSON.parse(sts).uid
+    );
+    // 글쓴이 아이디와 로그인 사용자 아이디가 같은가?
+    if (data.uid == JSON.parse(sts).uid) {
+      // 글 번호 저장과 조회수 증가를 하지 않도록 isRec 값을
+      // true로 변경한다!
+      isRec = true;
+    } ///// if /////
+  } ///// if /////
+
+  // (4) 배열에 값 추가하기 : 기존 값에 없으면 넣기!
+  if (!isRec) rec.push(data.idx);
+
+  // (5) 다시 세션스에 저장하기
+  sessionStorage.setItem("bd-rec", JSON.stringify(rec));
+
+  // 3. 글번호 증가하기
+  // -> 게시판 원본 데이터에 조회수 업데이트하기
+  if (!isRec) {
+    // (1) 게시판 로컬스 데이터 파싱
+    let bdData = JSON.parse(localStorage.getItem("board-data"));
+
+    // (2) 게시판 해당 데이터 cnt 값 증가
+    // 조건 : isRec값이 false일 때
+    bdData.some((v) => {
+      if (v.idx == data.idx) {
+        // 기존값에 1 증가하여 넣기
+        v.cnt = Number(v.cnt) + 1;
+        return true;
+      } /// if ///
+    }); /// some ///
+
+    // (3) 다시 로컬스에 저장하기
+    localStorage.setItem("board-data", JSON.stringify(bdData));
+  } /// if : (!isRec) ///
+
+  /////// 코드 리턴 구역 //////////////////////////////////////
   return (
     <>
       <table className="dtblview readone">
